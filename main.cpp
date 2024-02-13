@@ -15,24 +15,54 @@
 #include <gtc/matrix_transform.hpp>
 #include <gtc/type_ptr.hpp>
 
+float yaw;
+float pitch;
+static float lastX, lastY;
+
+void mouse_callback(GLFWwindow* window, double xpos, double ypos) {
+    float xOffset = (float)(xpos - lastX);
+    float yOffset = (float)(lastY - ypos); // 注意这里是相反的，因为y坐标是从底部往顶部依次增大的
+    lastX = xpos;
+    lastY = ypos;
+
+    float sensitivity = 0.3f;
+    xOffset *= sensitivity;
+    yOffset *= sensitivity;
+
+//    std::cout << xOffset << std::endl;
+
+    std::cout << "Pitch: " << pitch << ", Yaw: " << yaw  << ", sin(pitch) = " << sin(glm::radians(pitch)) << std::endl;
+    yaw   += xOffset;
+    pitch += yOffset;
+
+    // 在这里我们使用了 89.0f 来限制pitch，表示我们已经将其看作一个角度制的角了！所以必须用 glm::radian()
+    if(pitch > 89.0f)
+        pitch =  89.0f;
+    if(pitch < -89.0f)
+        pitch = -89.0f;
+}
 
 void processInput(GLFWwindow *window, glm::vec3 &o_cameraPos, const glm::vec3 &i_vectorForward) {
     static float lastTime = 0;
     float costTime = (float)glfwGetTime() - lastTime;
+    glm::vec3 localVecForward;
+    localVecForward.x = i_vectorForward.x;
+    localVecForward.z = i_vectorForward.z;
+    localVecForward.y = 0;
 
     float cameraSpeed = 6.0f; // adjust accordingly
     if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS)
-        o_cameraPos += costTime * cameraSpeed * i_vectorForward;
+        o_cameraPos += costTime * cameraSpeed * localVecForward;
     if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS)
-        o_cameraPos -= costTime * cameraSpeed * i_vectorForward;
+        o_cameraPos -= costTime * cameraSpeed * localVecForward;
     if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS)
-        o_cameraPos -= glm::normalize(glm::cross(i_vectorForward, glm::vec3(0, 1, 0))) * cameraSpeed * costTime;
+        o_cameraPos -= glm::normalize(glm::cross(localVecForward, glm::vec3(0, 1, 0))) * cameraSpeed * costTime;
     if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS)
-        o_cameraPos += glm::normalize(glm::cross(i_vectorForward, glm::vec3(0, 1, 0))) * cameraSpeed * costTime;
+        o_cameraPos += glm::normalize(glm::cross(localVecForward, glm::vec3(0, 1, 0))) * cameraSpeed * costTime;
     if (glfwGetKey(window, GLFW_KEY_SPACE) == GLFW_PRESS)
-        o_cameraPos += glm::length(i_vectorForward) * cameraSpeed * glm::vec3(0, 1, 0) * costTime;
+        o_cameraPos += glm::length(localVecForward) * cameraSpeed * glm::vec3(0, 1, 0) * costTime;
     if (glfwGetKey(window, GLFW_KEY_LEFT_SHIFT) == GLFW_PRESS)
-        o_cameraPos -= glm::length(i_vectorForward) * cameraSpeed * glm::vec3(0, 1, 0) * costTime;
+        o_cameraPos -= glm::length(localVecForward) * cameraSpeed * glm::vec3(0, 1, 0) * costTime;
 
     lastTime = (float)glfwGetTime();
 }
@@ -115,8 +145,16 @@ unsigned int vertexIndex[] = {
 
 int main()
 {
+
     GLFWwindow *glfwWindow;
     if (GLInit(&glfwWindow) == -1) return -1;
+    glfwSetCursorPosCallback(glfwWindow, mouse_callback);
+    int tmpX, tmpY;
+    glfwGetWindowSize(glfwWindow, &tmpX, &tmpY);
+    lastX = tmpX;
+    lastY = tmpY;
+    lastX /= 2;
+    lastY /= 2;
 
     glm::vec3 cubePositions[] = {
             glm::vec3( 0.0f,  0.0f,  0.0f),
@@ -167,16 +205,11 @@ int main()
 //    // projectionMat 定义了摄像机的拍摄角度
 //    projectionMat = glm::perspective(glm::radians(60.0f), 800.0f / 600.0f, 0.1f, 100.0f);
 
-
-    glm::mat4 rotCube(1.0);
-    rotCube = glm::rotate(rotCube, glm::radians(2.0f), glm::vec3(1, 0.5, 0.1));
-
     int modelMatUni = glGetUniformLocation(program.getID(), "modelMat");
     int viewMatUni = glGetUniformLocation(program.getID(), "viewMat");
     int projectionMatUni = glGetUniformLocation(program.getID(), "projectionMat");
 
     glm::vec3 cameraPos(0, 0, -3);
-    glm::vec3 pointAt(0, 0, 0);
     glm::vec3 vectorForward(0, 0, -1);
 
     /* Loop until the user closes the window */
@@ -184,6 +217,10 @@ int main()
     {
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
+        vectorForward.z = sin(glm::radians(yaw)) * cos(glm::radians(pitch));
+        vectorForward.x = cos(glm::radians(yaw)) * cos(glm::radians(pitch));
+        vectorForward.y = sin(glm::radians(pitch));
+        vectorForward = glm::normalize(vectorForward);
         glm::mat4 view          = glm::mat4(1.0f); // make sure to initialize matrix to identity matrix first
         glm::mat4 projection    = glm::mat4(1.0f);
 //        float fov = 20 + (float)abs(90*sin(2 * 3.1415926535 / 6 * glfwGetTime()));
@@ -191,7 +228,11 @@ int main()
         projection = glm::perspective(glm::radians(50.0f), (float)800 / (float)600, 0.1f, 100.0f);
 //        projection = glm::rotate(projection, glm::radians(0.0f), glm::vec3(0, 1, 0));
 
-        processInput(glfwWindow, cameraPos, vectorForward);
+        glm::vec3 vecMovingForward;
+        vecMovingForward.z = sin(glm::radians(yaw));
+        vecMovingForward.x = cos(glm::radians(yaw));
+        vecMovingForward.y = 0;
+        processInput(glfwWindow, cameraPos, vecMovingForward);
         glm::mat4 lookAt = glm::lookAt(cameraPos, cameraPos + vectorForward, glm::vec3(0, 1, 0));
         view       = lookAt;
 

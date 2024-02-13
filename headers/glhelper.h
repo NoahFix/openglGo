@@ -214,6 +214,7 @@ static int GLInit(GLFWwindow **window) {
     glGetIntegerv(GL_MAX_VERTEX_ATTRIBS, &nrAttributes);
     std::cout << "Maximum nr of vertex attributes supported: " << nrAttributes << std::endl;
     glEnable(GL_DEPTH_TEST);
+    glfwSetInputMode(*window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
 
     return 0;
 }
