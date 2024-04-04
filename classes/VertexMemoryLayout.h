@@ -22,7 +22,7 @@ private:
     std::vector<struct GLMemoryLayoutAttribute> attributes;
 public:
     void pushFloat(int count);
-    std::vector<struct GLMemoryLayoutAttribute> getLayoutObject();
+    std::vector<struct GLMemoryLayoutAttribute> getLayoutObject() const;
     void pushUint(int count);
     int getStride() const;
 };

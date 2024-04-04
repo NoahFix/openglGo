@@ -10,10 +10,14 @@
 class IndexBuffer final : public GLMemoryObject, BindableObject{
 public:
     IndexBuffer(int size, char *data);
+    bool isNullIBO();
+    int getIndicesCount();
     ~IndexBuffer();
 
     void bind() override;
     void unbind() override;
+private:
+    int size = 0;
 };
 
 

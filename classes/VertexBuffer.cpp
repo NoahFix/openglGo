@@ -16,13 +16,15 @@ VertexBuffer::~VertexBuffer() {
     glDeleteBuffers(1, &m_ID);
 }
 
-VertexBuffer::VertexBuffer(int size, char *data) {
+VertexBuffer::VertexBuffer(unsigned long size, char *data) : GLMemoryObject() {
+    this->size = size;
     glGenBuffers(1, &m_ID);
     // Don't invoke virtual methods in constructors: Just add 'final' to the class declare, suggesting that the class won't be a base class.
     this->bind();
     // Basically, vertices' buffer don't have any meanings,it's just a block of memory.By setting vertex attribute, we can give them meanings.
     // It's necessary to bind vbo to slot before filling data!
     glBufferData(GL_ARRAY_BUFFER, size, data, GL_STATIC_DRAW);
-    this->unbind();
+//    this->unbind();
 
 }
+

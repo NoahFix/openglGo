@@ -34,6 +34,12 @@ add_executable(openglGo
         libraries/stb_image.h
         classes/Texture.h
         classes/Texture.cpp
+        classes/Camera.h
+        classes/GLInstance.h
+        classes/GLInstance.cpp
+        classes/GLObject.h
+        classes/GLObject.cpp
+        classes/Camera.cpp
 )
 
 target_link_libraries(

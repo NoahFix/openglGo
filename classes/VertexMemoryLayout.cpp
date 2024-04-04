@@ -22,6 +22,6 @@ int VertexMemoryLayout::getStride() const {
     return m_Stride;
 }
 
-std::vector<struct GLMemoryLayoutAttribute> VertexMemoryLayout::getLayoutObject() {
+std::vector<struct GLMemoryLayoutAttribute> VertexMemoryLayout::getLayoutObject() const {
     return attributes;
 }

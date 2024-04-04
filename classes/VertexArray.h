@@ -17,7 +17,10 @@ public:
     void bind() override;
     void unbind() override;
 
-    void addVertexBufferObject(VertexBuffer &vbo, VertexMemoryLayout &memLayout);
+    void addVertexBufferObject(VertexBuffer &vbo, const VertexMemoryLayout &memLayout);
+    unsigned long getEachVertexSize() const;
+private:
+    unsigned long offset = 0;
 };
 
 

@@ -10,6 +10,7 @@
 #include "BindableObject.h"
 #include "Uniform.h"
 #include "Texture.h"
+#include "../glm/glm.hpp"
 
 
 class Program: public GLMemoryObject, BindableObject {
@@ -17,10 +18,14 @@ private:
     int m_textureCount = 0;
 public:
     Program(const Shader& vs, const Shader& fs);
+    Program(const std::string& vsFilePath, const std::string& fsFilePath);
     ~Program();
     unsigned int getID();
     void bind() override;
     void unbind() override;
+    void setI(const std::string &name, int v);
+    void set4f(const std::string &name, int v1, int v2, int v3, int v4);
+    void setMatrix4(const std::string &name, glm::mat4);
 
     Uniform getUniform(const std::string& varName);
     void addTexture(const Texture &texture);

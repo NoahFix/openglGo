@@ -12,7 +12,6 @@ void Renderer::render(int count) {
     if((_ibo == nullptr) || (_shader == nullptr) || (_vao == nullptr) || (_vbo == nullptr))
         throw std::runtime_error("Uninitialized renderer! ");
 
-    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     glDrawElements(GL_TRIANGLES, count, GL_UNSIGNED_INT, nullptr);
 
 }
@@ -23,10 +22,16 @@ void Renderer::init(IndexBuffer *ibo, Program *shader, VertexArray *vao, VertexB
     _vao = vao;
     _vbo = vbo;
 
-    _vao->bind();
-    _shader->bind();
-    _vbo->bind();
-    _ibo->bind();
+    if (_vbo != nullptr)
+        _vbo->bind();
+
+    if (_vao != nullptr)
+        _vao->bind();
+
+    if (_ibo != nullptr)
+        _ibo->bind();
+    if (_shader != nullptr)
+        _shader->bind();
 }
 
 void Renderer::renderArrays(int count) {
@@ -35,7 +40,8 @@ void Renderer::renderArrays(int count) {
     if (_ibo != nullptr)
         _ibo->unbind();
 
-    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+//    std::cout << count << std::endl;
     glDrawArrays(GL_TRIANGLES, 0, count);
+
 
 }
