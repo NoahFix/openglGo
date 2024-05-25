@@ -11,7 +11,7 @@
 int GLInstance::begin(Rect windowSize, const std::string &title) {
     // The lack of the sentence caused crash.
     glfwInit();
-
+    this->windowSize = windowSize;
     // These code is used to make glfw adapt to version 330.
     glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
@@ -51,7 +51,7 @@ int GLInstance::begin(Rect windowSize, const std::string &title) {
 
     // Additional options
     glEnable(GL_DEPTH_TEST);
-    glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+//    glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
 
     return 0;
 
@@ -62,7 +62,9 @@ void GLInstance::renderArray(GLObject *object) {
 
 }
 
-void GLInstance::renderLoop() {
+// renderLoop负责每一帧画面的渲染，每轮循环会执行dynamicTransCallback函数，主要用于动态地对object做transformation
+// 这里还涉及到了对不同object的贴图切换
+void GLInstance::renderLoop(std::function<void(void)> *dynamicTransCallback) {
     while (!glfwWindowShouldClose(GLInstance::window))
     {
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
@@ -76,20 +78,31 @@ void GLInstance::renderLoop() {
             // Texture 对象存储着一张贴图，Texture 由每个GLObject掌控，这是因为Texture 对象不能一生成就绑定到shader，必须在shader绑定后（也就上一行Renderer::init后）才能绑定texture对象
             if(!object->textures.empty()) {
                 for(const Texture *tex:object->textures) {
+                    // TODO：警告：OpenGL的texture是全局的存在，而不是一个shader有16个材质槽位，而是整个OpenGL只有16个槽位。
                     object->shader.addTexture(*tex);
-                    object->textures.pop_back();
+//                    object->textures.pop_back();
                 }
             }
+
+//          //glActiveTexture(GL_TEXTURE0);
             if(!object->mat4Uniform.empty()) {
                 object->shader.setMatrix4(object->mat4Uniform, object->matrix4);
             }
 
 //            std::cout << "addr ibo = " << (long )&object->ibo << std::endl;
+            if (camera == nullptr)
+                throw std::runtime_error("A Camera object is needed.");
+            Camera globalCamera = *camera;
             glm::mat4 modelMat(1.0), viewMat(1.0), projectionMat(1.0);
             glm::vec3 objectPosition = object->getPosition();
             modelMat = glm::translate(modelMat, -objectPosition);
             modelMat *= object->rotate;
+            object->rotate = glm::mat4(1.0f);
 
+            viewMat = glm::lookAt(globalCamera.cameraPosition,
+                               glm::vec3(0.0f, 0.0f, 0.0f),
+                               glm::vec3(0.0f, 1.0f, 0.0f));
+            projectionMat = glm::perspective(glm::radians(45.0f),float (windowSize.width / windowSize.height), 0.1f, 100.0f);
 
             object->shader.setMatrix4("modelMat", modelMat);
             object->shader.setMatrix4("viewMat", viewMat);
@@ -106,6 +119,8 @@ void GLInstance::renderLoop() {
                 glDrawElements(GL_TRIANGLES, v, GL_UNSIGNED_INT, 0);
             }
 
+            if(dynamicTransCallback != nullptr)
+                (*dynamicTransCallback)();
         }
 
         /* Swap front and back buffers */

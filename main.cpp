@@ -304,45 +304,85 @@
 //        0.5, -0.5,0.0, 1.0
 //};
 
-
 float vertices[] = {
-        // positions               // texture coords
-        0.5f, 0.5f, 1.0f, 1.0f, // top right
-        0.5f, -0.5f, 1.0f, 0.0f, // bottom right
-        -0.5f, -0.5f, 0.0f, 0.0f, // bottom left
-        -0.5f, 0.5f, 0.0f, 1.0f  // top left
-};
-// IBO
-unsigned int vertexIndex[] = {
-        0, 1, 3,
-        1, 2, 3
-};
+        -0.5f, -0.5f, -0.5f,  0.0f, 0.0f,
+        0.5f, -0.5f, -0.5f,  1.0f, 0.0f,
+        0.5f,  0.5f, -0.5f,  1.0f, 1.0f,
+        0.5f,  0.5f, -0.5f,  1.0f, 1.0f,
+        -0.5f,  0.5f, -0.5f,  0.0f, 1.0f,
+        -0.5f, -0.5f, -0.5f,  0.0f, 0.0f,
 
+        -0.5f, -0.5f,  0.5f,  0.0f, 0.0f,
+        0.5f, -0.5f,  0.5f,  1.0f, 0.0f,
+        0.5f,  0.5f,  0.5f,  1.0f, 1.0f,
+        0.5f,  0.5f,  0.5f,  1.0f, 1.0f,
+        -0.5f,  0.5f,  0.5f,  0.0f, 1.0f,
+        -0.5f, -0.5f,  0.5f,  0.0f, 0.0f,
+
+        -0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
+        -0.5f,  0.5f, -0.5f,  1.0f, 1.0f,
+        -0.5f, -0.5f, -0.5f,  0.0f, 1.0f,
+        -0.5f, -0.5f, -0.5f,  0.0f, 1.0f,
+        -0.5f, -0.5f,  0.5f,  0.0f, 0.0f,
+        -0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
+
+        0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
+        0.5f,  0.5f, -0.5f,  1.0f, 1.0f,
+        0.5f, -0.5f, -0.5f,  0.0f, 1.0f,
+        0.5f, -0.5f, -0.5f,  0.0f, 1.0f,
+        0.5f, -0.5f,  0.5f,  0.0f, 0.0f,
+        0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
+
+        -0.5f, -0.5f, -0.5f,  0.0f, 1.0f,
+        0.5f, -0.5f, -0.5f,  1.0f, 1.0f,
+        0.5f, -0.5f,  0.5f,  1.0f, 0.0f,
+        0.5f, -0.5f,  0.5f,  1.0f, 0.0f,
+        -0.5f, -0.5f,  0.5f,  0.0f, 0.0f,
+        -0.5f, -0.5f, -0.5f,  0.0f, 1.0f,
+
+        -0.5f,  0.5f, -0.5f,  0.0f, 1.0f,
+        0.5f,  0.5f, -0.5f,  1.0f, 1.0f,
+        0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
+        0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
+        -0.5f,  0.5f,  0.5f,  0.0f, 0.0f,
+        -0.5f,  0.5f, -0.5f,  0.0f, 1.0f
+};
 
 int main() {
     GLInstance &glInstance = GLInstance::getInstance();
     glInstance.begin({800, 600}, "Hello glPackage");
     VertexMemoryLayout layout;
-    layout.pushFloat(2);
-    layout.pushFloat(2);
-    Program shader = Program("assets/shaders/vertTest.glsl", "assets/shaders/fragTest.glsl");
-    glm::mat4 transformation(1.0f);
-    transformation = glm::rotate(transformation, glm::radians(90.0f), glm::vec3(0.0, 0.0, 1.0));
-    transformation = glm::scale(transformation, glm::vec3(0.5, 0.5, 0.5));
+    layout.pushFloat(3);    // Space position
+    layout.pushFloat(2);    // Texture position
+    Program shaderSmileBox = Program("assets/shaders/vertTest.glsl", "assets/shaders/fragTest.glsl");
+    Program shaderChest = Program("assets/shaders/vertTest.glsl", "assets/shaders/fragTest.glsl");
 
-    shader.setMatrix4("transformation", transformation);
+
     Texture texture1("assets/pictures/awesomeface.png", "textureUniform"),
-            texture2("assets/pictures/container.jpg", "textureChest", false);
+            texture2("assets/pictures/container.jpg", "textureUniform", false);
 
-    GLObject object((char*)vertices, sizeof(vertices), shader, layout, (char*)vertexIndex, sizeof(vertexIndex));
-    object.addTexture(texture1);
-    object.addTexture(texture2);
-    object.setPosition(0, -1, 0);
-    object.setRotate(40.0f, glm::vec3(1.0f, 0.0f, 1.0f));
+    GLObject secondObj((char*)vertices, sizeof(vertices), shaderChest, layout);
+    secondObj.addTexture(texture2);
+    secondObj.setPosition(-2, 0, 0);
 
-    Camera camera(1.0, 0.0, 0.0);
+    GLObject firstObj((char*)vertices, sizeof(vertices), shaderSmileBox, layout);
+    firstObj.addTexture(texture1);
+    firstObj.setPosition(0, 0, 0);
 
-    glInstance.renderArray(&object);
-    glInstance.renderLoop();
+
+
+    Camera camera(0, 3, 4);
+
+    glInstance.setCamera(camera);
+    glInstance.renderArray(&secondObj);
+    glInstance.renderArray(&firstObj);
+    firstObj.addRotate(20, glm::vec3(0, 1, 0));
+
+
+    std::function<void(void)> cb = [&firstObj]() -> void{
+        firstObj.addRotate(abs(90 * sin(2 * 3.1415926535 / 2 * glfwGetTime())), glm::vec3(0, 1, 0));
+    };
+
+    glInstance.renderLoop(&cb);
     return 0;
 }

@@ -13,12 +13,17 @@ class Program;
 
 class Texture: public GLMemoryObject {
     friend class Program;
+    friend class TextureManager;
 private:
+    std::string fileName;
     std::string textureUniName;
     Texture(const std::string &textureUniName, int);
+
 public:
     Texture(char *pic_buffer, int width, int height, const std::string &textureUniName, bool alpha = true);
     Texture(const std::string &file, const std::string &textureUniName, bool alpha = true);
+
+    std::string getFilePath() const;
 };
 
 

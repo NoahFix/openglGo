@@ -14,8 +14,6 @@
 
 
 class Program: public GLMemoryObject, BindableObject {
-private:
-    int m_textureCount = 0;
 public:
     Program(const Shader& vs, const Shader& fs);
     Program(const std::string& vsFilePath, const std::string& fsFilePath);
@@ -29,6 +27,8 @@ public:
 
     Uniform getUniform(const std::string& varName);
     void addTexture(const Texture &texture);
+private:
+    int seq = -1;
 };
 
 

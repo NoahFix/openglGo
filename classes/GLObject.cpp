@@ -65,6 +65,6 @@ void GLObject::setMatrix4(glm::mat4 mat4, const std::string &matUniform) {
     this->mat4Uniform = matUniform;
 }
 
-void GLObject::setRotate(float degree, glm::vec3 axis) {
+void GLObject::addRotate(float degree, glm::vec3 axis) {
     this->rotate = glm::rotate(this->rotate, glm::radians(degree), axis);
 }

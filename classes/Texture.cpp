@@ -4,7 +4,7 @@
 
 #include "Texture.h"
 #include "../libraries/stb_image.h"
-
+// TODO：Texture没有析构函数，但是盲目加上可能出现问题
 Texture::Texture(char *pic_buffer, int width, int height, const std::string &textureUniName, bool alpha): Texture(textureUniName, 0) {
     glGenTextures(1, &m_ID);
     // Put our texture into its slot.
@@ -23,8 +23,10 @@ Texture::Texture(char *pic_buffer, int width, int height, const std::string &tex
 }
 
 Texture::Texture(const std::string &file, const std::string &textureUniName, bool alpha): Texture(textureUniName, 0) {
+    fileName = file;
     glGenTextures(1, &m_ID);
     // Put our texture into its slot.
+    // The sentence may be necessary!
     glBindTexture(GL_TEXTURE_2D, m_ID);
 
     // 为当前绑定的纹理对象设置环绕
@@ -53,4 +55,8 @@ Texture::Texture(const std::string &file, const std::string &textureUniName, boo
 Texture::Texture(const std::string &textureUniName, int) : GLMemoryObject() {
     this->textureUniName = textureUniName;
 
+}
+
+std::string Texture::getFilePath() const {
+    return fileName;
 }

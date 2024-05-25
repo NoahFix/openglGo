@@ -10,6 +10,7 @@
 #include <string>
 #include <iostream>
 #include <exception>
+#include "TextureManager.h"
 
 Program::Program(const Shader& vs, const Shader& fs) {
     m_ID = glCreateProgram();
@@ -73,20 +74,7 @@ unsigned int Program::getID() {
     return m_ID;
 }
 
-void Program::addTexture(const Texture &texture) {
-    if (m_textureCount > 15)
-        throw std::runtime_error("Only 16 textures can be applied!");
 
-    int currentProgram;
-    glGetIntegerv(GL_CURRENT_PROGRAM, &currentProgram);
-    if(currentProgram != m_ID)
-        throw std::runtime_error("Bind shader program before adding textures(Render())!");
-    getUniform(texture.textureUniName).setI(m_textureCount);
-    glActiveTexture(GL_TEXTURE0 + m_textureCount);
-    glBindTexture(GL_TEXTURE_2D, texture.m_ID);
-
-    m_textureCount++;
-}
 
 Program::Program(const std::string &vsFilePath, const std::string &fsFilePath) {
     std::string srcVS;
@@ -146,4 +134,15 @@ void Program::set4f(const std::string &name, int v1, int v2, int v3, int v4) {
 void Program::setMatrix4(const std::string &name, glm::mat4 Mat4) {
     int modelMatUni = glGetUniformLocation(this->getID(), name.c_str());
     glUniformMatrix4fv(modelMatUni, 1, GL_FALSE, glm::value_ptr(Mat4));
+}
+
+// The function is especially designed for shaders who only support to use 1 texture currently!
+// So its logic is that when it detects itself already has a texture, it'll just bind the texture belonging to it to uniform.
+// When it doesn't have a texture, it will add the texture to TextureManager and bind the texture to itself.
+void Program::addTexture(const Texture &texture) {
+    if (seq == -1) {
+        TextureManager& tm = TextureManager::getInstance();
+        seq = tm.addTexture(texture) - 1;
+    }
+    getUniform(texture.textureUniName).setI(seq);
 }

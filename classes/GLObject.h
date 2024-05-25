@@ -25,9 +25,10 @@ public:
     void addTexture(const Texture &texture);
     void setMatrix4(glm::mat4 mat4, const std::string &matUniform);
 
+
     glm::vec3 getPosition();
     void setPosition(float x, float y, float z);
-    void setRotate(float degree, glm::vec3 axis);
+    void addRotate(float degree, glm::vec3 axis);
 private:
     glm::mat4 rotate{1.0f};
     glm::mat4 matrix4{1.0f};

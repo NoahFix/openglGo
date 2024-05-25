@@ -28,7 +28,7 @@ public:
     int begin(Rect windowSize, const std::string &title);
     void renderArray(GLObject *object);
     GLFWwindow* getWindowPtr();
-    void renderLoop();
+    void renderLoop(std::function<void(void)> *dynamicTransCallback = nullptr);
     void setCamera(const Camera& camera);
 
     static GLInstance& getInstance() {
@@ -37,6 +37,7 @@ public:
     }
 
 private:
+    Rect windowSize;
     const Camera *camera;
 
 //    bool beginRenderingLoop = false;
