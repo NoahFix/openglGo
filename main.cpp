@@ -354,22 +354,22 @@ int main() {
     VertexMemoryLayout layout;
     layout.pushFloat(3);    // Space position
     layout.pushFloat(2);    // Texture position
-    Program shaderSmileBox = Program("assets/shaders/vertTest.glsl", "assets/shaders/fragTest.glsl");
-    Program shaderChest = Program("assets/shaders/vertTest.glsl", "assets/shaders/fragTest.glsl");
+    Program shaderMixedTexture = Program("assets/shaders/vertTest.glsl", "assets/shaders/fragTest.glsl");
+    Program shaderChest = Program("assets/shaders/vertTest.glsl", "assets/shaders/singleTextureFrag.glsl");
 
 
-    Texture texture1("assets/pictures/awesomeface.png", "textureUniform"),
-            texture2("assets/pictures/container.jpg", "textureUniform", false);
+    Texture texture1("assets/pictures/awesomeface.png", "textureUniformSmile"),
+            texture2("assets/pictures/container.jpg", "textureUniformChest", false),
+            texture3("assets/pictures/container.jpg", "textureUniform", false);
 
     GLObject secondObj((char*)vertices, sizeof(vertices), shaderChest, layout);
-    secondObj.addTexture(texture2);
+    secondObj.addTexture(texture3);
     secondObj.setPosition(-2, 0, 0);
 
-    GLObject firstObj((char*)vertices, sizeof(vertices), shaderSmileBox, layout);
+    GLObject firstObj((char*)vertices, sizeof(vertices), shaderMixedTexture, layout);
     firstObj.addTexture(texture1);
+    firstObj.addTexture(texture2);
     firstObj.setPosition(0, 0, 0);
-
-
 
     Camera camera(0, 3, 4);
 

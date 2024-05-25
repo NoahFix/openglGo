@@ -2,9 +2,11 @@
 out vec4 FragColor;
 
 in vec2 texCoord;
-uniform sampler2D textureUniform;   // Get texture from program
+uniform sampler2D textureUniformSmile;   // Get texture from program
+uniform sampler2D textureUniformChest;   // Get texture from program
+
 
 void main()
 {
-    FragColor = texture(textureUniform, texCoord);
+    FragColor = mix(texture(textureUniformSmile, texCoord), texture(textureUniformChest, texCoord), 0.7);
 }

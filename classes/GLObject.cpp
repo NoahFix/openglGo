@@ -68,3 +68,13 @@ void GLObject::setMatrix4(glm::mat4 mat4, const std::string &matUniform) {
 void GLObject::addRotate(float degree, glm::vec3 axis) {
     this->rotate = glm::rotate(this->rotate, glm::radians(degree), axis);
 }
+
+void GLObject::loadAllTextures() {
+    if(!textures.empty()) {
+        for(const Texture *tex:textures) {
+            // TODO：警告：OpenGL的texture是全局的存在，而不是一个shader有16个材质槽位，而是整个OpenGL只有16个槽位。
+            shader.addTexture(*tex);
+//                    object->textures.pop_back();
+        }
+    }
+}

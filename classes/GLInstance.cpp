@@ -76,13 +76,7 @@ void GLInstance::renderLoop(std::function<void(void)> *dynamicTransCallback) {
             Renderer::init(&object->ibo, &object->shader, &object->vertexArray, &object->vertexBuffer);
 
             // Texture 对象存储着一张贴图，Texture 由每个GLObject掌控，这是因为Texture 对象不能一生成就绑定到shader，必须在shader绑定后（也就上一行Renderer::init后）才能绑定texture对象
-            if(!object->textures.empty()) {
-                for(const Texture *tex:object->textures) {
-                    // TODO：警告：OpenGL的texture是全局的存在，而不是一个shader有16个材质槽位，而是整个OpenGL只有16个槽位。
-                    object->shader.addTexture(*tex);
-//                    object->textures.pop_back();
-                }
-            }
+            object->loadAllTextures();
 
 //          //glActiveTexture(GL_TEXTURE0);
             if(!object->mat4Uniform.empty()) {

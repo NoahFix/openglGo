@@ -51,7 +51,6 @@ Program::Program(const Shader& vs, const Shader& fs) {
 }
 
 void Program::bind() {
-    m_ID + 1;
     glUseProgram(m_ID);
 }
 
@@ -140,9 +139,14 @@ void Program::setMatrix4(const std::string &name, glm::mat4 Mat4) {
 // So its logic is that when it detects itself already has a texture, it'll just bind the texture belonging to it to uniform.
 // When it doesn't have a texture, it will add the texture to TextureManager and bind the texture to itself.
 void Program::addTexture(const Texture &texture) {
-    if (seq == -1) {
-        TextureManager& tm = TextureManager::getInstance();
-        seq = tm.addTexture(texture) - 1;
+
+    int sq;
+    TextureManager& tm = TextureManager::getInstance();
+    if((sq = tm.existTexture(texture)) != -1) {
+        getUniform(texture.textureUniName).setI(sq);
+    } else {
+        int seq = tm.addTexture(texture);
+        getUniform(texture.textureUniName).setI(seq);
+
     }
-    getUniform(texture.textureUniName).setI(seq);
 }

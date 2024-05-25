@@ -17,6 +17,7 @@ class GLInstance;
 class GLObject {
     friend class GLInstance;
 public:
+    void loadAllTextures();
     GLObject(const GLObject &v);
 
     GLObject(char *vertexData, int size, const Program &&shader, const VertexMemoryLayout &layout);

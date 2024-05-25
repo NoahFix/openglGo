@@ -7,6 +7,7 @@
 
 
 #include "Texture.h"
+#include <vector>
 
 class TextureManager {
 public:
@@ -17,7 +18,9 @@ public:
         return instance;
     }
 
+    std::vector<int> texturesIdList;
     int addTexture(const Texture& texture);
+    int existTexture(const Texture &texture);
 private:
     TextureManager() = default;
     int m_textureCount = 0;

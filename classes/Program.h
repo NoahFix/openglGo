@@ -27,8 +27,6 @@ public:
 
     Uniform getUniform(const std::string& varName);
     void addTexture(const Texture &texture);
-private:
-    int seq = -1;
 };
 
 
