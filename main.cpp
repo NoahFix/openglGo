@@ -16,57 +16,55 @@
 #include <gtc/type_ptr.hpp>
 #include "classes/GLInstance.h"
 #include "classes/GLObject.h"
-//float yaw;
-//float pitch;
-//static float lastX, lastY;
-//
-//void mouse_callback(GLFWwindow* window, double xpos, double ypos) {
-//    float xOffset = (float)(xpos - lastX);
-//    float yOffset = (float)(lastY - ypos); // 注意这里是相反的，因为y坐标是从底部往顶部依次增大的
-//    lastX = xpos;
-//    lastY = ypos;
-//
-//    float sensitivity = 0.3f;
-//    xOffset *= sensitivity;
-//    yOffset *= sensitivity;
-//
-////    std::cout << xOffset << std::endl;
-//
+#include "classes/Objects/GLCube.h"
+float yaw;
+float pitch;
+static float lastX, lastY;
+
+void mouse_callback(GLFWwindow* window, double xpos, double ypos) {
+    float xOffset = (float)(xpos - lastX);
+    float yOffset = (float)(lastY - ypos); // 注意这里是相反的，因为y坐标是从底部往顶部依次增大的
+    lastX = xpos;
+    lastY = ypos;
+
+    float sensitivity = 0.3f;
+    xOffset *= sensitivity;
+    yOffset *= sensitivity;
 //    std::cout << "Pitch: " << pitch << ", Yaw: " << yaw  << ", sin(pitch) = " << sin(glm::radians(pitch)) << std::endl;
-//    yaw   += xOffset;
-//    pitch += yOffset;
-//
-//    // 在这里我们使用了 89.0f 来限制pitch，表示我们已经将其看作一个角度制的角了！所以必须用 glm::radian()
-//    if(pitch > 89.0f)
-//        pitch =  89.0f;
-//    if(pitch < -89.0f)
-//        pitch = -89.0f;
-//}
-//
-//void processInput(GLFWwindow *window, glm::vec3 &o_cameraPos, const glm::vec3 &i_vectorForward) {
-//    static float lastTime = 0;
-//    float costTime = (float)glfwGetTime() - lastTime;
-//    glm::vec3 localVecForward;
-//    localVecForward.x = i_vectorForward.x;
-//    localVecForward.z = i_vectorForward.z;
-//    localVecForward.y = 0;
-//
-//    float cameraSpeed = 6.0f; // adjust accordingly
-//    if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS)
-//        o_cameraPos += costTime * cameraSpeed * localVecForward;
-//    if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS)
-//        o_cameraPos -= costTime * cameraSpeed * localVecForward;
-//    if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS)
-//        o_cameraPos -= glm::normalize(glm::cross(localVecForward, glm::vec3(0, 1, 0))) * cameraSpeed * costTime;
-//    if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS)
-//        o_cameraPos += glm::normalize(glm::cross(localVecForward, glm::vec3(0, 1, 0))) * cameraSpeed * costTime;
-//    if (glfwGetKey(window, GLFW_KEY_SPACE) == GLFW_PRESS)
-//        o_cameraPos += glm::length(localVecForward) * cameraSpeed * glm::vec3(0, 1, 0) * costTime;
-//    if (glfwGetKey(window, GLFW_KEY_LEFT_SHIFT) == GLFW_PRESS)
-//        o_cameraPos -= glm::length(localVecForward) * cameraSpeed * glm::vec3(0, 1, 0) * costTime;
-//
-//    lastTime = (float)glfwGetTime();
-//}
+    yaw   += xOffset;
+    pitch += yOffset;
+
+    // 在这里我们使用了 89.0f 来限制pitch，表示我们已经将其看作一个角度制的角了！所以必须用 glm::radian()
+    if(pitch > 89.0f)
+        pitch =  89.0f;
+    if(pitch < -89.0f)
+        pitch = -89.0f;
+}
+
+void processInput(GLFWwindow *window, glm::vec3 &o_cameraPos, const glm::vec3 &i_vectorForward) {
+    static float lastTime = 0;
+    float costTime = (float)glfwGetTime() - lastTime;
+    glm::vec3 localVecForward;
+    localVecForward.x = i_vectorForward.x;
+    localVecForward.z = i_vectorForward.z;
+    localVecForward.y = 0;
+
+    float cameraSpeed = 3.0f; // adjust accordingly
+    if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS)
+        o_cameraPos += costTime * cameraSpeed * localVecForward;
+    if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS)
+        o_cameraPos -= costTime * cameraSpeed * localVecForward;
+    if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS)
+        o_cameraPos -= glm::normalize(glm::cross(localVecForward, glm::vec3(0, 1, 0))) * cameraSpeed * costTime;
+    if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS)
+        o_cameraPos += glm::normalize(glm::cross(localVecForward, glm::vec3(0, 1, 0))) * cameraSpeed * costTime;
+    if (glfwGetKey(window, GLFW_KEY_SPACE) == GLFW_PRESS)
+        o_cameraPos += glm::length(localVecForward) * cameraSpeed * glm::vec3(0, 1, 0) * costTime;
+    if (glfwGetKey(window, GLFW_KEY_LEFT_SHIFT) == GLFW_PRESS)
+        o_cameraPos -= glm::length(localVecForward) * cameraSpeed * glm::vec3(0, 1, 0) * costTime;
+
+    lastTime = (float)glfwGetTime();
+}
 //
 //
 //
@@ -149,7 +147,6 @@
 //
 //    GLFWwindow *glfwWindow;
 //    if (GLInit(&glfwWindow) == -1) return -1;
-//    glfwSetCursorPosCallback(glfwWindow, mouse_callback);
 //    int tmpX, tmpY;
 //    glfwGetWindowSize(glfwWindow, &tmpX, &tmpY);
 //    lastX = tmpX;
@@ -210,7 +207,8 @@
 //    int projectionMatUni = glGetUniformLocation(program.getID(), "projectionMat");
 //
 //    glm::vec3 cameraPos(0, 0, -3);
-//    glm::vec3 vectorForward(0, 0, -1);
+
+
 //
 //    /* Loop until the user closes the window */
 //    while (!glfwWindowShouldClose(glfwWindow))
@@ -223,24 +221,8 @@
 //        program.addTexture(texture1);
 //        program.addTexture(texture2);
 //
-//        vectorForward.z = sin(glm::radians(yaw)) * cos(glm::radians(pitch));
-//        vectorForward.x = cos(glm::radians(yaw)) * cos(glm::radians(pitch));
-//        vectorForward.y = sin(glm::radians(pitch));
-//        vectorForward = glm::normalize(vectorForward);
-//        glm::mat4 view          = glm::mat4(1.0f); // make sure to initialize matrix to identity matrix first
-//        glm::mat4 projection    = glm::mat4(1.0f);
-////        float fov = 20 + (float)abs(90*sin(2 * 3.1415926535 / 6 * glfwGetTime()));
-////        std::cout << "FOV: " << fov << std::endl;
-//        projection = glm::perspective(glm::radians(50.0f), (float)800 / (float)600, 0.1f, 100.0f);
-////        projection = glm::rotate(projection, glm::radians(0.0f), glm::vec3(0, 1, 0));
+
 //
-//        glm::vec3 vecMovingForward;
-//        vecMovingForward.z = sin(glm::radians(yaw));
-//        vecMovingForward.x = cos(glm::radians(yaw));
-//        vecMovingForward.y = 0;
-//        processInput(glfwWindow, cameraPos, vecMovingForward);
-//        glm::mat4 lookAt = glm::lookAt(cameraPos, cameraPos + vectorForward, glm::vec3(0, 1, 0));
-//        view       = lookAt;
 //
 ////        {
 ////            glm::mat4 model(1.0);
@@ -304,83 +286,57 @@
 //        0.5, -0.5,0.0, 1.0
 //};
 
+
+
+// This is a  plane
 float vertices[] = {
-        -0.5f, -0.5f, -0.5f,  0.0f, 0.0f,
-        0.5f, -0.5f, -0.5f,  1.0f, 0.0f,
-        0.5f,  0.5f, -0.5f,  1.0f, 1.0f,
-        0.5f,  0.5f, -0.5f,  1.0f, 1.0f,
-        -0.5f,  0.5f, -0.5f,  0.0f, 1.0f,
-        -0.5f, -0.5f, -0.5f,  0.0f, 0.0f,
-
-        -0.5f, -0.5f,  0.5f,  0.0f, 0.0f,
-        0.5f, -0.5f,  0.5f,  1.0f, 0.0f,
-        0.5f,  0.5f,  0.5f,  1.0f, 1.0f,
-        0.5f,  0.5f,  0.5f,  1.0f, 1.0f,
-        -0.5f,  0.5f,  0.5f,  0.0f, 1.0f,
-        -0.5f, -0.5f,  0.5f,  0.0f, 0.0f,
-
-        -0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
-        -0.5f,  0.5f, -0.5f,  1.0f, 1.0f,
-        -0.5f, -0.5f, -0.5f,  0.0f, 1.0f,
-        -0.5f, -0.5f, -0.5f,  0.0f, 1.0f,
-        -0.5f, -0.5f,  0.5f,  0.0f, 0.0f,
-        -0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
-
-        0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
-        0.5f,  0.5f, -0.5f,  1.0f, 1.0f,
-        0.5f, -0.5f, -0.5f,  0.0f, 1.0f,
-        0.5f, -0.5f, -0.5f,  0.0f, 1.0f,
-        0.5f, -0.5f,  0.5f,  0.0f, 0.0f,
-        0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
-
-        -0.5f, -0.5f, -0.5f,  0.0f, 1.0f,
-        0.5f, -0.5f, -0.5f,  1.0f, 1.0f,
-        0.5f, -0.5f,  0.5f,  1.0f, 0.0f,
-        0.5f, -0.5f,  0.5f,  1.0f, 0.0f,
-        -0.5f, -0.5f,  0.5f,  0.0f, 0.0f,
-        -0.5f, -0.5f, -0.5f,  0.0f, 1.0f,
-
-        -0.5f,  0.5f, -0.5f,  0.0f, 1.0f,
-        0.5f,  0.5f, -0.5f,  1.0f, 1.0f,
-        0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
-        0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
-        -0.5f,  0.5f,  0.5f,  0.0f, 0.0f,
-        -0.5f,  0.5f, -0.5f,  0.0f, 1.0f
+        0.0, 0.0f, 0.0f, 0.0f, 0.0f,
+        0.0f, 1.0f, 0.0f, 0.0f, 1.0f,
+        1.0f, 1.0f, 0.0f, 1.0f, 1.0f,
+        0.0f, 0.0f, 0.0f, 0.0f, 0.0f,
+        1.0f, 1.0f, 0.0f, 1.0f, 1.0f,
+        1.0f, 0.0f, 0.0f, 1.0f, 0.0f
 };
 
 int main() {
     GLInstance &glInstance = GLInstance::getInstance();
     glInstance.begin({800, 600}, "Hello glPackage");
-    VertexMemoryLayout layout;
-    layout.pushFloat(3);    // Space position
-    layout.pushFloat(2);    // Texture position
-    Program shaderMixedTexture = Program("assets/shaders/vertTest.glsl", "assets/shaders/fragTest.glsl");
+    glfwSetCursorPosCallback(GLInstance::getWindowPtr(), mouse_callback);
+    glfwSetInputMode(GLInstance::getWindowPtr(), GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+
+
     Program shaderChest = Program("assets/shaders/vertTest.glsl", "assets/shaders/singleTextureFrag.glsl");
+    Texture texture2("assets/pictures/container.jpg", "textureUniformChest", false);
 
+    GLCube cube(shaderChest);
 
-    Texture texture1("assets/pictures/awesomeface.png", "textureUniformSmile"),
-            texture2("assets/pictures/container.jpg", "textureUniformChest", false),
-            texture3("assets/pictures/container.jpg", "textureUniform", false);
+    cube.addTexture(texture2);
+//    sidePlane1.setPosition(0, 0, 0);
 
-    GLObject secondObj((char*)vertices, sizeof(vertices), shaderChest, layout);
-    secondObj.addTexture(texture3);
-    secondObj.setPosition(-2, 0, 0);
-
-    GLObject firstObj((char*)vertices, sizeof(vertices), shaderMixedTexture, layout);
-    firstObj.addTexture(texture1);
-    firstObj.addTexture(texture2);
-    firstObj.setPosition(0, 0, 0);
 
     Camera camera(0, 3, 4);
 
     glInstance.setCamera(camera);
-    glInstance.renderArray(&secondObj);
-    glInstance.renderArray(&firstObj);
-    firstObj.addRotate(20, glm::vec3(0, 1, 0));
+    glInstance.renderArray(&cube);
+
+//    sidePlane1.addRotate(20, glm::vec3(0, 1, 0));
 
 
-    std::function<void(void)> cb = [&firstObj]() -> void{
-        firstObj.addRotate(abs(90 * sin(2 * 3.1415926535 / 2 * glfwGetTime())), glm::vec3(0, 1, 0));
+    std::function<void(void)> cb = [&camera]() -> void{
+        glm::vec3 vectorForward(0, 0, -1);
+        vectorForward.z = sin(glm::radians(yaw)) * cos(glm::radians(pitch));
+        vectorForward.x = cos(glm::radians(yaw)) * cos(glm::radians(pitch));
+        vectorForward.y = sin(glm::radians(pitch));
+        vectorForward = glm::normalize(vectorForward);
+
+        glm::vec3 vecMovingForward;
+        vecMovingForward.z = sin(glm::radians(yaw));
+        vecMovingForward.x = cos(glm::radians(yaw));
+        vecMovingForward.y = 0;
+        camera.forward = vectorForward;
+        processInput(GLInstance::getWindowPtr(), camera.cameraPosition, vecMovingForward);
+
+//        std::cout << camera.cameraPosition.x << ", " << camera.cameraPosition.y << ", " << camera.cameraPosition.z << std::endl;
     };
 
     glInstance.renderLoop(&cb);

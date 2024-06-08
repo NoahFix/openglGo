@@ -27,7 +27,7 @@ public:
 
     int begin(Rect windowSize, const std::string &title);
     void renderArray(GLObject *object);
-    GLFWwindow* getWindowPtr();
+    static GLFWwindow* getWindowPtr();
     void renderLoop(std::function<void(void)> *dynamicTransCallback = nullptr);
     void setCamera(const Camera& camera);
 
@@ -44,7 +44,6 @@ private:
 // TODO: 从这里就烂了，因为这个vector强制GLObject进行复制，从而导致多个相同的GLObject持有同样的IBO地址，在它们析构时，就会重复析构
     std::vector<GLObject*> renderList;
     GLInstance() = default;
-    GLFWwindow *window = nullptr;
 //    std::thread&& renderingThread;
 
 };

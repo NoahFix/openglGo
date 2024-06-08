@@ -14,3 +14,4 @@ void Camera::setCameraPosition(float x, float y, float z) {
     this->cameraPosition.y = y;
     this->cameraPosition.z = z;
 }
+

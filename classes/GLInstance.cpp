@@ -7,6 +7,7 @@
 #include <gtc/matrix_transform.hpp>
 #include <thread>
 #include "Renderer.h"
+static GLFWwindow *window = nullptr;
 
 int GLInstance::begin(Rect windowSize, const std::string &title) {
     // The lack of the sentence caused crash.
@@ -57,6 +58,7 @@ int GLInstance::begin(Rect windowSize, const std::string &title) {
 
 }
 
+// renderList will be processed in  GLInstance::renderLoop()
 void GLInstance::renderArray(GLObject *object) {
     renderList.push_back(object);
 
@@ -65,7 +67,7 @@ void GLInstance::renderArray(GLObject *object) {
 // renderLoop负责每一帧画面的渲染，每轮循环会执行dynamicTransCallback函数，主要用于动态地对object做transformation
 // 这里还涉及到了对不同object的贴图切换
 void GLInstance::renderLoop(std::function<void(void)> *dynamicTransCallback) {
-    while (!glfwWindowShouldClose(GLInstance::window))
+    while (!glfwWindowShouldClose(window))
     {
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
@@ -91,10 +93,10 @@ void GLInstance::renderLoop(std::function<void(void)> *dynamicTransCallback) {
             glm::vec3 objectPosition = object->getPosition();
             modelMat = glm::translate(modelMat, -objectPosition);
             modelMat *= object->rotate;
-            object->rotate = glm::mat4(1.0f);
+//            object->rotate = glm::mat4(1.0f);
 
             viewMat = glm::lookAt(globalCamera.cameraPosition,
-                               glm::vec3(0.0f, 0.0f, 0.0f),
+                                  globalCamera.cameraPosition + camera->forward,
                                glm::vec3(0.0f, 1.0f, 0.0f));
             projectionMat = glm::perspective(glm::radians(45.0f),float (windowSize.width / windowSize.height), 0.1f, 100.0f);
 
@@ -118,7 +120,7 @@ void GLInstance::renderLoop(std::function<void(void)> *dynamicTransCallback) {
         }
 
         /* Swap front and back buffers */
-        glfwSwapBuffers(GLInstance::window);
+        glfwSwapBuffers(window);
 
         /* Poll for and process events */
         glfwPollEvents();
@@ -128,7 +130,7 @@ void GLInstance::renderLoop(std::function<void(void)> *dynamicTransCallback) {
 }
 
 GLFWwindow *GLInstance::getWindowPtr() {
-    return GLInstance::window;
+    return window;
 }
 
 void GLInstance::setCamera(const Camera &camera) {

@@ -11,6 +11,8 @@ class Camera {
 public:
     Camera(float x, float y, float z);
     void setCameraPosition(float x, float y, float z);
+
+    glm::vec3 forward;
     glm::vec3 cameraPosition;
 
 };

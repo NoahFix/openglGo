@@ -42,6 +42,8 @@ add_executable(openglGo
         classes/Camera.cpp
         classes/TextureManager.h
         classes/TextureManager.cpp
+        classes/Objects/GLCube.h
+        classes/Objects/GLCube.cpp
 )
 
 target_link_libraries(
