@@ -11,8 +11,11 @@ class Camera {
 public:
     Camera(float x, float y, float z);
     void setCameraPosition(float x, float y, float z);
+    void lookAt(glm::vec3 pointPosition);
 
-    glm::vec3 forward;
+    float pitch = 0;
+    float yaw = 0;
+    glm::vec3 sightVector;
     glm::vec3 cameraPosition;
 
 };

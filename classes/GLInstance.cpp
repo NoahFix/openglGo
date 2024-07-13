@@ -8,6 +8,55 @@
 #include <thread>
 #include "Renderer.h"
 static GLFWwindow *window = nullptr;
+extern std::ostream& operator<<(std::ostream &out, glm::vec3 building);
+
+static void resizeCallback(GLFWwindow  *window_, int w, int h) {
+    printf("Window resizing.\n");
+}
+
+void GLInstance::processInput(GLFWwindow *window, glm::vec3 &o_cameraPos, const glm::vec3 &i_vectorForward) {
+    static float lastTime = 0;
+    float costTime = (float)glfwGetTime() - lastTime;
+    glm::vec3 localVecForward;
+    localVecForward.x = i_vectorForward.x;
+    localVecForward.z = i_vectorForward.z;
+    localVecForward.y = 0;
+
+    float cameraSpeed = 4.0f; // adjust accordingly
+    if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS)
+        o_cameraPos += costTime * cameraSpeed * localVecForward;
+    if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS)
+        o_cameraPos -= costTime * cameraSpeed * localVecForward;
+    if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS)
+        o_cameraPos -= glm::normalize(glm::cross(localVecForward, glm::vec3(0, 1, 0))) * cameraSpeed * costTime;
+    if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS)
+        o_cameraPos += glm::normalize(glm::cross(localVecForward, glm::vec3(0, 1, 0))) * cameraSpeed * costTime;
+    if (glfwGetKey(window, GLFW_KEY_SPACE) == GLFW_PRESS)
+        o_cameraPos += glm::length(localVecForward) * cameraSpeed * glm::vec3(0, 1, 0) * costTime;
+    if (glfwGetKey(window, GLFW_KEY_LEFT_SHIFT) == GLFW_PRESS)
+        o_cameraPos -= glm::length(localVecForward) * cameraSpeed * glm::vec3(0, 1, 0) * costTime;
+
+
+    if (glfwGetKey(window, GLFW_KEY_LEFT) == GLFW_PRESS)
+        builtInCamera.yaw -= 1.0f;
+    if (glfwGetKey(window, GLFW_KEY_RIGHT) == GLFW_PRESS)
+        builtInCamera.yaw += 1.0f;
+    if (glfwGetKey(window, GLFW_KEY_UP) == GLFW_PRESS) {
+        if (builtInCamera.pitch >= 89.0f)
+            builtInCamera.pitch = 89.9f;
+        else
+            builtInCamera.pitch += 1.0f;
+    }
+
+    if (glfwGetKey(window, GLFW_KEY_DOWN) == GLFW_PRESS) {
+        if (builtInCamera.pitch <= -89.0f)
+            builtInCamera.pitch = -89.9f;
+        else
+            builtInCamera.pitch -=1.0f;
+    }
+    lastTime = (float)glfwGetTime();
+
+}
 
 int GLInstance::begin(Rect windowSize, const std::string &title) {
     // The lack of the sentence caused crash.
@@ -54,6 +103,8 @@ int GLInstance::begin(Rect windowSize, const std::string &title) {
     glEnable(GL_DEPTH_TEST);
 //    glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
 
+    glfwSetWindowSizeCallback(window, resizeCallback);
+
     return 0;
 
 }
@@ -70,6 +121,19 @@ void GLInstance::renderLoop(std::function<void(void)> *dynamicTransCallback) {
     while (!glfwWindowShouldClose(window))
     {
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+        // Camera moving process
+        glm::vec3 vectorForward(0, 0, -1);
+        vectorForward.z = sin(glm::radians(builtInCamera.yaw)) * cos(glm::radians(builtInCamera.pitch));
+        vectorForward.x = cos(glm::radians(builtInCamera.yaw)) * cos(glm::radians(builtInCamera.pitch));
+        vectorForward.y = sin(glm::radians(builtInCamera.pitch));
+        vectorForward = glm::normalize(vectorForward);
+
+        glm::vec3 vecMovingForward;
+        vecMovingForward.z = sin(glm::radians(builtInCamera.yaw));
+        vecMovingForward.x = cos(glm::radians(builtInCamera.yaw));
+        vecMovingForward.y = 0;
+        builtInCamera.sightVector = vectorForward;
+        processInput(GLInstance::getWindowPtr(), builtInCamera.cameraPosition, vecMovingForward);
 
         // 注意：这里必须写 GLObject &object:renderList 不能写成： GLObject object:renderList 否则图像只会闪现而过！！！
         // TODO: or (GLObject &object:renderList) 竟然能发生复制object？？？
@@ -84,26 +148,19 @@ void GLInstance::renderLoop(std::function<void(void)> *dynamicTransCallback) {
             if(!object->mat4Uniform.empty()) {
                 object->shader.setMatrix4(object->mat4Uniform, object->matrix4);
             }
-
-//            std::cout << "addr ibo = " << (long )&object->ibo << std::endl;
-            if (camera == nullptr)
-                throw std::runtime_error("A Camera object is needed.");
-            Camera globalCamera = *camera;
             glm::mat4 modelMat(1.0), viewMat(1.0), projectionMat(1.0);
             glm::vec3 objectPosition = object->getPosition();
             modelMat = glm::translate(modelMat, -objectPosition);
-            modelMat *= object->rotate;
-//            object->rotate = glm::mat4(1.0f);
+//            modelMat *= object->rotate;
+            object->rotate = glm::mat4(1.0f);
 
-            viewMat = glm::lookAt(globalCamera.cameraPosition,
-                                  globalCamera.cameraPosition + camera->forward,
+//            std::cout << "Camera sightVector"
+
+            viewMat = glm::lookAt(builtInCamera.cameraPosition,
+                                  builtInCamera.cameraPosition + builtInCamera.sightVector,
                                glm::vec3(0.0f, 1.0f, 0.0f));
-            projectionMat = glm::perspective(glm::radians(45.0f),float (windowSize.width / windowSize.height), 0.1f, 100.0f);
-
-            object->shader.setMatrix4("modelMat", modelMat);
-            object->shader.setMatrix4("viewMat", viewMat);
-            object->shader.setMatrix4("projectionMat", projectionMat);
-
+            projectionMat = glm::perspective(glm::radians(60.0f),float (windowSize.width / windowSize.height), 0.1f, 100.0f);
+            object->shader.setMatrix4("glPosition", projectionMat * viewMat * modelMat);
 
             if (object->ibo.isNullIBO()) {
                 int v = object->vertexBuffer.size / object->vertexArray.getEachVertexSize();
@@ -114,6 +171,8 @@ void GLInstance::renderLoop(std::function<void(void)> *dynamicTransCallback) {
 //                std::cout << "v(IBO to be drawn) is: " << v << std::endl;
                 glDrawElements(GL_TRIANGLES, v, GL_UNSIGNED_INT, 0);
             }
+
+
 
             if(dynamicTransCallback != nullptr)
                 (*dynamicTransCallback)();
@@ -133,8 +192,11 @@ GLFWwindow *GLInstance::getWindowPtr() {
     return window;
 }
 
-void GLInstance::setCamera(const Camera &camera) {
-    this->camera = &camera;
+GLInstance::GLInstance(): builtInCamera(0, 0, 0) {
 
+}
+
+Camera &GLInstance::getCamera() {
+    return builtInCamera;
 }
 

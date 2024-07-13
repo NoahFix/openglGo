@@ -19,6 +19,7 @@ class GLObject {
 public:
     void loadAllTextures();
 //    GLObject(const GLObject &v);
+    bool marked = false;
 
     GLObject(char *vertexData, int size, const Program &&shader, const VertexMemoryLayout &layout);
     GLObject(char *vertexData, int size, const Program& shader, const VertexMemoryLayout& layout);
