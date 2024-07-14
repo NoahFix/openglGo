@@ -51,6 +51,6 @@ static float vertices[] = {
 
 // You must provide a texture to the object so that it can run properly.
 GLCube::GLCube(const Program &shader)
-        : GLObject((char*)&vertices, sizeof(vertices), shader, VertexMemoryLayout::getPresetLayout(LAYOUT_TYPE_M3DT2D)) {
+        : GERenderableObject((char*)&vertices, sizeof(vertices), shader, VertexMemoryLayout::getPresetLayout(LAYOUT_TYPE_M3DT2D)) {
 
 }

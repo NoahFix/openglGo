@@ -12,10 +12,10 @@
 #include "GLMemoryObject.h"
 #include "BindableObject.h"
 
-class GLInstance;
+class GEInstance;
 
 class VertexBuffer final : public GLMemoryObject, BindableObject {
-    friend class GLInstance;
+    friend class GEInstance;
 public:
     VertexBuffer(unsigned long size, char *data);
     ~VertexBuffer();

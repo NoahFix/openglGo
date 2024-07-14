@@ -5,11 +5,11 @@
 #ifndef OPENGLGO_GLCUBE_H
 #define OPENGLGO_GLCUBE_H
 
-#include "../GLObject.h"
-class GLObject;
+#include "../GERenderableObject.h"
+class GERenderableObject;
 class Program;
 
-class GLCube: public GLObject {
+class GLCube: public GERenderableObject {
 public:
     explicit GLCube(const Program &shader);
 };

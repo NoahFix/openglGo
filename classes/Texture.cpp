@@ -4,6 +4,7 @@
 
 #include "Texture.h"
 #include "../libraries/stb_image.h"
+#include <iostream>
 // TODO：Texture没有析构函数，但是盲目加上可能出现问题
 Texture::Texture(char *pic_buffer, int width, int height, const std::string &textureUniName, bool alpha): Texture(textureUniName, 0) {
     glGenTextures(1, &m_ID);
@@ -14,8 +15,8 @@ Texture::Texture(char *pic_buffer, int width, int height, const std::string &tex
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
     // 设置在纹理被 放大 和 缩小 时使用的处理方式（纹理过滤）
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
 
     glTexImage2D(GL_TEXTURE_2D, 0, alpha?GL_RGBA:GL_RGB, width, height, 0, alpha?GL_RGBA:GL_RGB, GL_UNSIGNED_BYTE, pic_buffer);
     glGenerateMipmap(GL_TEXTURE_2D);
@@ -33,11 +34,13 @@ Texture::Texture(const std::string &file, const std::string &textureUniName, boo
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
     // 设置在纹理被 放大 和 缩小 时使用的处理方式（纹理过滤）
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
 
     int width1, height1, nrChannels1;
     unsigned char *data = stbi_load(file.c_str(), &width1, &height1, &nrChannels1, 0);
+    std::cout << "Load image: " + file << " whose size is ( " << width1 << " * " << height1 << " )" << std::endl;
+
     // 加载并生成纹理
     if (data)
     {

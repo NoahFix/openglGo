@@ -10,7 +10,7 @@
 
 void Renderer::render(int count) {
     if((_ibo == nullptr) || (_shader == nullptr) || (_vao == nullptr) || (_vbo == nullptr))
-        throw std::runtime_error("Uninitialized renderer! ");
+        throw std::runtime_error("Uninitialized beginRenderer! ");
 
     glDrawElements(GL_TRIANGLES, count, GL_UNSIGNED_INT, nullptr);
 
@@ -36,7 +36,7 @@ void Renderer::init(IndexBuffer *ibo, Program *shader, VertexArray *vao, VertexB
 
 void Renderer::renderArrays(int count) {
     if((_shader == nullptr) || (_vao == nullptr) || (_vbo == nullptr))
-        throw std::runtime_error("Uninitialized renderer! IBO shouldn't be set!");
+        throw std::runtime_error("Uninitialized beginRenderer! IBO shouldn't be set!");
     if (_ibo != nullptr)
         _ibo->unbind();
 
