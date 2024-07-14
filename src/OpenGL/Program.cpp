@@ -5,7 +5,7 @@
 #include "Program.h"
 #include "glad/glad.h"
 #include "Texture.h"
-#include "../headers/glhelper.h"
+#include "../../libraries/glhelper.h"
 #include "gtc/type_ptr.hpp"
 #include <string>
 #include <iostream>

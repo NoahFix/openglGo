@@ -2,7 +2,7 @@
 // Created by NoahFix on 2024/7/14.
 //
 #include <vector>
-#include "../../Texture.h"
+#include "../../OpenGL/Texture.h"
 
 
 class Textures {

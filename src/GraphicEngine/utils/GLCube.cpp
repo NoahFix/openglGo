@@ -2,7 +2,7 @@
 // Created by NoahFix on 2024/6/8.
 //
 
-#include "GLCube.h"
+#include "utils/GLCube.h"
 
 // This is a block with 4 same-textured faces
 static float vertices[] = {

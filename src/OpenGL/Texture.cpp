@@ -3,7 +3,7 @@
 //
 
 #include "Texture.h"
-#include "../libraries/stb_image.h"
+#include "../../libraries/stb_image.h"
 #include <iostream>
 // TODO：Texture没有析构函数，但是盲目加上可能出现问题
 Texture::Texture(char *pic_buffer, int width, int height, const std::string &textureUniName, bool alpha): Texture(textureUniName, 0) {

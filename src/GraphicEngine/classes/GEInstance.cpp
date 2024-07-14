@@ -3,14 +3,19 @@
 //
 
 #include "GEInstance.h"
-#include "../headers/glhelper.h"
+#include "../../../libraries/glhelper.h"
 #include <GLFW/glfw3.h>
-#include <gtc/matrix_transform.hpp>
+#include "gtc/matrix_transform.hpp"
 #include <thread>
-#include "Renderer.h"
+#include "../../OpenGL/Renderer.h"
 
 static GLFWwindow *window = nullptr;
 extern std::ostream& operator<<(std::ostream &out, glm::vec3 building);
+
+void GEInstance::fittingWindowResizing(GLFWwindow* _, int width, int height) {
+    glfwGetWindowSize(window, &windowSize.width, &windowSize.height);
+
+}
 
 void GEInstance::processInput(GLFWwindow *_, glm::vec3 &o_cameraPos, const glm::vec3 &i_vectorForward) {
     static float lastTime = 0;
@@ -33,6 +38,8 @@ void GEInstance::processInput(GLFWwindow *_, glm::vec3 &o_cameraPos, const glm::
         o_cameraPos += glm::length(localVecForward) * cameraSpeed * glm::vec3(0, 1, 0) * costTime;
     if (glfwGetKey(window, GLFW_KEY_LEFT_SHIFT) == GLFW_PRESS)
         o_cameraPos -= glm::length(localVecForward) * cameraSpeed * glm::vec3(0, 1, 0) * costTime;
+
+    // Custom keys
 
 
     float sightMovingSpeed = 90.0f;
@@ -131,6 +138,7 @@ int GEInstance::begin(Rect windowSize_, const std::string &title) {
         return 1;
     glfwMakeContextCurrent(window);
     glfwSwapInterval(1); // Enable vsync
+    glfwSetWindowSizeCallback(window, fittingWindowResizing);
 //    glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
 //    glfwSetInputMode(GEInstance::getWindowPtr(), GLFW_CURSOR, GLFW_CURSOR_DISABLED);
     imguiRenderer.init();
@@ -148,6 +156,10 @@ void GEInstance::renderArray(GERenderableObject *object) {
 // renderLoop负责每一帧画面的渲染，每轮循环会执行dynamicTransCallback函数，主要用于动态地对object做transformation
 // 这里还涉及到了对不同object的贴图切换
 void GEInstance::renderLoop(std::function<void(void)> *dynamicTransCallback) {
+    double top, bottom, left, right, near, far;
+    bool selected = false;
+
+
     while (!glfwWindowShouldClose(window))
     {
         // Game scene rendering
@@ -186,7 +198,7 @@ void GEInstance::renderLoop(std::function<void(void)> *dynamicTransCallback) {
             viewMat = glm::lookAt(builtInCamera.transformation.position,
                                   builtInCamera.transformation.position + builtInCamera.sightVector,
                                glm::vec3(0.0f, 1.0f, 0.0f));
-            projectionMat = glm::perspective(glm::radians(60.0f),float (windowSize.width / windowSize.height), 0.1f, 100.0f);
+            projectionMat = glm::perspective(glm::radians(60.0f),float (windowSize.width) / float(windowSize.height), 0.1f, 100.0f);
             glDetails.shader.setMatrix4("glPosition", projectionMat * viewMat * modelMat);
 
             if (glDetails.ibo.isNullIBO()) {
@@ -206,8 +218,16 @@ void GEInstance::renderLoop(std::function<void(void)> *dynamicTransCallback) {
         imguiRenderer.beginRenderer();
         const glm::vec3 &position = builtInCamera.transformation.position;
 
-        ImGui::Begin("Hello my window!");
+        ImGui::Begin("Debugger");
         ImGui::Text("Position: (%f, %f, %f)", position.x, position.y, position.z);
+        ImGui::Text("Window size: w%d, h%d", windowSize.width, windowSize.height);
+
+        ImGui::Checkbox("Apply", &selected);
+        if (selected) {
+            printf("A");
+            glOrtho(left, right, bottom, top, near, far);
+        }
+
         ImGui::End();
         imguiRenderer.endRenderer();
 
@@ -228,7 +248,7 @@ GLFWwindow *GEInstance::getWindowPtr() {
     return window;
 }
 
-GEInstance::GEInstance(): builtInCamera(0, 0, 0), clearColor(0, 0, 0), windowSize{600, 400} {}
+GEInstance::GEInstance(): builtInCamera(0, 0, 0), clearColor(0, 0, 0) {}
 
 CameraObject &GEInstance::getCamera() {
     return builtInCamera;

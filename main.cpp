@@ -3,20 +3,20 @@
 #include "glad/glad.h"
 #include <GLFW/glfw3.h>
 #include <string>
-#include "classes/VertexArray.h"
-#include "classes/VertexBuffer.h"
-#include "classes/Shader.h"
-#include "classes/Program.h"
-#include "headers/glhelper.h"
-#include "classes/IndexBuffer.h"
-#include "classes/VertexMemoryLayout.h"
-#include "classes/Renderer.h"
+#include "src/OpenGL/VertexArray.h"
+#include "src/OpenGL/VertexBuffer.h"
+#include "src/OpenGL/Shader.h"
+#include "src/OpenGL/Program.h"
+#include "libraries/glhelper.h"
+#include "src/OpenGL/IndexBuffer.h"
+#include "src/OpenGL/VertexMemoryLayout.h"
+#include "src/OpenGL/Renderer.h"
 #include "libraries/stb_image.h"
 #include <gtc/matrix_transform.hpp>
 #include <gtc/type_ptr.hpp>
 #include "classes/GEInstance.h"
 #include "classes/GERenderableObject.h"
-#include "classes/Objects/GLCube.h"
+#include "utils/GLCube.h"
 // 返回ostream是为了能够链式调用
 // ostream& 是为了保证传入 cout 时不会发拷贝，而是传入地址，否则就没法返回cout了，也就不能实现链式调用
 std::ostream& operator<<(std::ostream &out, glm::vec3 building) {
@@ -44,10 +44,22 @@ int main() {
     Program shaderChest = Program("assets/shaders/vertTest.glsl", "assets/shaders/singleTextureFrag.glsl");
     Texture texture2("assets/pictures/bedrock.png", "textureUniformChest", true);
 
-    GLCube cubeLight(shaderChest);
-    cubeLight.textures.textures.push_back(&texture2);
+    std::vector<GLCube*> cubes;
 
-    glInstance.renderArray(&cubeLight);
+    for (int i = 0; i < 10; ++i) {
+        for (int j = 0; j < 10; ++j) {
+            auto cube = new GLCube(shaderChest);
+            cube->transformation.position.x = i;
+            cube->transformation.position.z = j;
+            cube->textures.textures.push_back(&texture2);
+            cubes.push_back(cube);
+        }
+    }
+
+    for (GLCube *cube:cubes) {
+        glInstance.renderArray(cube);
+    }
+
     CameraObject& camera = glInstance.getCamera();
     camera.setCameraPosition(-6, 3, -1);
     camera.lookAt(glm::vec3(0, 0, 0));

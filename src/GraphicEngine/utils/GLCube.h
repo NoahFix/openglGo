@@ -5,7 +5,7 @@
 #ifndef OPENGLGO_GLCUBE_H
 #define OPENGLGO_GLCUBE_H
 
-#include "../GERenderableObject.h"
+#include "classes/GERenderableObject.h"
 class GERenderableObject;
 class Program;
 

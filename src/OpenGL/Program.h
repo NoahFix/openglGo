@@ -10,7 +10,7 @@
 #include "BindableObject.h"
 #include "Uniform.h"
 #include "Texture.h"
-#include "../glm/glm.hpp"
+#include "glm.hpp"
 
 
 class Program: public GLMemoryObject, BindableObject {

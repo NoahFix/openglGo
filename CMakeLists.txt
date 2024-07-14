@@ -8,48 +8,49 @@ include_directories(/opt/homebrew/Cellar/glfw/3.3.9/include)
 include_directories(/Users/noahfix/CLionProjects/openglGo/libraries/glm)
 include_directories(/Users/noahfix/CLionProjects/openglGo/libraries/imgui)
 include_directories(/Users/noahfix/CLionProjects/openglGo/classes/GraphicEngine)
+include_directories(/Users/noahfix/CLionProjects/openglGo/src/GraphicEngine)
 
 link_directories(/opt/homebrew/Cellar/glfw/3.3.9/lib)
 
 add_executable(openglGo
         libraries/glad/src/glad.c
         main.cpp
-        classes/VertexBuffer.cpp
-        classes/VertexBuffer.h
-        classes/GLMemoryObject.h
-        classes/VertexArray.cpp
-        classes/VertexArray.h
-        classes/BindableObject.h
-        classes/Program.cpp
-        classes/Program.h
-        classes/Shader.cpp
-        classes/Shader.h
-        classes/Uniform.cpp
-        classes/Uniform.h
-        headers/glhelper.h
-        classes/IndexBuffer.h
-        classes/IndexBuffer.cpp
-        classes/VertexMemoryLayout.h
-        classes/VertexMemoryLayout.cpp
-        classes/Renderer.h
-        classes/Renderer.cpp
+        src/OpenGL/VertexBuffer.cpp
+        src/OpenGL/VertexBuffer.h
+        src/OpenGL/GLMemoryObject.h
+        src/OpenGL/VertexArray.cpp
+        src/OpenGL/VertexArray.h
+        src/OpenGL/BindableObject.h
+        src/OpenGL/Program.cpp
+        src/OpenGL/Program.h
+        src/OpenGL/Shader.cpp
+        src/OpenGL/Shader.h
+        src/OpenGL/Uniform.cpp
+        src/OpenGL/Uniform.h
+        libraries/glhelper.h
+        src/OpenGL/IndexBuffer.h
+        src/OpenGL/IndexBuffer.cpp
+        src/OpenGL/VertexMemoryLayout.h
+        src/OpenGL/VertexMemoryLayout.cpp
+        src/OpenGL/Renderer.h
+        src/OpenGL/Renderer.cpp
         libraries/stb_image.h
-        classes/Texture.h
-        classes/Texture.cpp
-        classes/CameraObject.h
-        classes/GEInstance.h
-        classes/GEInstance.cpp
-        classes/GERenderableObject.h
-        classes/GERenderableObject.cpp
-        classes/CameraObject.cpp
-        classes/TextureManager.h
-        classes/TextureManager.cpp
-        classes/Objects/GLCube.h
-        classes/Objects/GLCube.cpp
-        classes/GraphicEngine/Properties/Transformation.h
-        classes/GraphicEngine/Properties/Textures.h
-        classes/GraphicEngine/Properties/OpenGLDetails.h
-        classes/gui/ImguiRenderer.cpp
+        src/OpenGL/Texture.h
+        src/OpenGL/Texture.cpp
+        src/GraphicEngine/classes/CameraObject.h
+        src/GraphicEngine/classes/GEInstance.h
+        src/GraphicEngine/classes/GEInstance.cpp
+        src/GraphicEngine/classes/GERenderableObject.h
+        src/GraphicEngine/classes/GERenderableObject.cpp
+        src/GraphicEngine/classes/CameraObject.cpp
+        src/OpenGL/TextureManager.h
+        src/OpenGL/TextureManager.cpp
+        src/GraphicEngine/utils/GLCube.h
+        src/GraphicEngine/utils/GLCube.cpp
+        src/GraphicEngine/Properties/Transformation.h
+        src/GraphicEngine/Properties/Textures.h
+        src/GraphicEngine/Properties/OpenGLDetails.h
+        src/GraphicEngine/gui/ImguiRenderer.cpp
         libraries/imgui/imgui_demo.cpp
         libraries/imgui/imgui.cpp
         libraries/imgui/imgui_draw.cpp
@@ -58,8 +59,8 @@ add_executable(openglGo
         libraries/imgui/imgui_stdlib.cpp
         libraries/imgui/imgui_tables.cpp
         libraries/imgui/imgui_widgets.cpp
-        classes/GEObject.h
-        classes/GraphicEngine/Properties/Camera.h
+        src/GraphicEngine/classes/GEObject.h
+        src/GraphicEngine/Properties/Camera.h
 )
 
 target_link_libraries(

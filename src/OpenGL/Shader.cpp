@@ -3,7 +3,7 @@
 //
 
 #include "Shader.h"
-#include "../headers/glhelper.h"
+#include "../../libraries/glhelper.h"
 
 Shader::Shader(std::string &src, unsigned int type) {
     m_ID = compileShader(src, type);

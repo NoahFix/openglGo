@@ -5,7 +5,7 @@
 #include "GERenderableObject.h"
 
 #include <utility>
-#include <gtc/type_ptr.hpp>
+#include "gtc/type_ptr.hpp"
 
 GERenderableObject::GERenderableObject(char *vertexData, int size, const Program& shader, const VertexMemoryLayout& layout)
 : glDetails(size, vertexData, shader, 0, nullptr) {

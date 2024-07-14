@@ -2,7 +2,7 @@
 // Created by NoahFix on 2024/7/14.
 //
 #include "ImguiRenderer.h"
-#include "../GEInstance.h"
+#include "classes/GEInstance.h"
 
 using namespace ImGui;
 

@@ -2,9 +2,9 @@
 // Created by NoahFix on 2024/7/14.
 //
 
-#include "../../IndexBuffer.h"
-#include "../../Program.h"
-#include "../../VertexArray.h"
+#include "../../OpenGL/IndexBuffer.h"
+#include "../../OpenGL/Program.h"
+#include "../../OpenGL/VertexArray.h"
 
 class OpenGLDetails {
 public:
