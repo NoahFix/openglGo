@@ -46,8 +46,8 @@ int main() {
 
     std::vector<GLCube*> cubes;
 
-    for (int i = 0; i < 10; ++i) {
-        for (int j = 0; j < 10; ++j) {
+    for (int i = 0; i < 100; ++i) {
+        for (int j = 0; j < 100; ++j) {
             auto cube = new GLCube(shaderChest);
             cube->transformation.position.x = i;
             cube->transformation.position.z = j;

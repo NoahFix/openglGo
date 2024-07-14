@@ -61,6 +61,8 @@ add_executable(openglGo
         libraries/imgui/imgui_widgets.cpp
         src/GraphicEngine/classes/GEObject.h
         src/GraphicEngine/Properties/Camera.h
+        src/GraphicEngine/classes/GERenderer.h
+        src/GraphicEngine/classes/GERenderer.cpp
 )
 
 target_link_libraries(

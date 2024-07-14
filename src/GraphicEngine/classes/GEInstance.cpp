@@ -17,6 +17,8 @@ void GEInstance::fittingWindowResizing(GLFWwindow* _, int width, int height) {
 
 }
 
+static bool latelyPressedL = false;
+
 void GEInstance::processInput(GLFWwindow *_, glm::vec3 &o_cameraPos, const glm::vec3 &i_vectorForward) {
     static float lastTime = 0;
     float costTime = (float)glfwGetTime() - lastTime;
@@ -40,7 +42,15 @@ void GEInstance::processInput(GLFWwindow *_, glm::vec3 &o_cameraPos, const glm::
         o_cameraPos -= glm::length(localVecForward) * cameraSpeed * glm::vec3(0, 1, 0) * costTime;
 
     // Custom keys
-
+    // When key pressed down, work once.
+    if (glfwGetKey(window, GLFW_KEY_L) == GLFW_PRESS) {
+        if (!latelyPressedL) {
+            geRenderer.wireframeEnable = !geRenderer.wireframeEnable;
+            latelyPressedL = true;
+        }
+    } else {
+        latelyPressedL = false;
+    }
 
     float sightMovingSpeed = 90.0f;
     if (glfwGetKey(window, GLFW_KEY_LEFT) == GLFW_PRESS)
@@ -67,15 +77,15 @@ void GEInstance::processInput(GLFWwindow *_, glm::vec3 &o_cameraPos, const glm::
 int GEInstance::begin(Rect windowSize_, const std::string &title) {
     // The lack of the sentence caused crash.
     glfwInit();
-    this->windowSize = windowSize_;
+    GEInstance::windowSize = windowSize_;
     // These code is used to make glfw adapt to version 330.
     glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
     glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
-#ifdef __APPLE__
+    #ifdef __APPLE__
     std::cout << "I'm apple machine" << std::endl;
     glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
-#endif
+    #endif
     /* Initialize the library */
     if (!glfwInit())
         return -1;
@@ -104,38 +114,40 @@ int GEInstance::begin(Rect windowSize_, const std::string &title) {
     } else {
         // 处理获取版本信息失败的情况
     }
-    // Additional options
-    glEnable(GL_DEPTH_TEST);
-
     if (!glfwInit())
         return 1;
 
     // Decide GL+GLSL versions
-#if defined(IMGUI_IMPL_OPENGL_ES2)
+    #if defined(IMGUI_IMPL_OPENGL_ES2)
     // GL ES 2.0 + GLSL 100
     const char* glsl_version = "#version 100";
     glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 2);
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 0);
     glfwWindowHint(GLFW_CLIENT_API, GLFW_OPENGL_ES_API);
-#elif defined(__APPLE__)
+    #elif defined(__APPLE__)
     // GL 3.2 + GLSL 150
     const char* glsl_version = "#version 150";
     glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 2);
     glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);  // 3.2+ only
     glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);            // Required on Mac
-#else
+    #else
     // GL 3.0 + GLSL 130
     const char* glsl_version = "#version 130";
     glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 0);
     //glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);  // 3.2+ only
     //glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);            // 3.0+ only
-#endif
+    #endif
 
     // Create window with graphics context
     if (window == nullptr)
         return 1;
+
+    glEnable(GL_DEPTH_TEST);
+    glDepthFunc(GL_LESS);
+    glEnable(GL_CULL_FACE);
+    glCullFace(GL_BACK);
     glfwMakeContextCurrent(window);
     glfwSwapInterval(1); // Enable vsync
     glfwSetWindowSizeCallback(window, fittingWindowResizing);
@@ -156,15 +168,14 @@ void GEInstance::renderArray(GERenderableObject *object) {
 // renderLoop负责每一帧画面的渲染，每轮循环会执行dynamicTransCallback函数，主要用于动态地对object做transformation
 // 这里还涉及到了对不同object的贴图切换
 void GEInstance::renderLoop(std::function<void(void)> *dynamicTransCallback) {
-    double top, bottom, left, right, near, far;
-    bool selected = false;
-
 
     while (!glfwWindowShouldClose(window))
     {
         // Game scene rendering
         glClearColor(clearColor.x, clearColor.y, clearColor.z, 1);
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+        glPolygonMode(GL_FRONT_AND_BACK, geRenderer.wireframeEnable ? GL_LINE : GL_FILL);
 
         // CameraObject moving process
         glm::vec3 vectorForward(0, 0, -1);
@@ -221,12 +232,6 @@ void GEInstance::renderLoop(std::function<void(void)> *dynamicTransCallback) {
         ImGui::Begin("Debugger");
         ImGui::Text("Position: (%f, %f, %f)", position.x, position.y, position.z);
         ImGui::Text("Window size: w%d, h%d", windowSize.width, windowSize.height);
-
-        ImGui::Checkbox("Apply", &selected);
-        if (selected) {
-            printf("A");
-            glOrtho(left, right, bottom, top, near, far);
-        }
 
         ImGui::End();
         imguiRenderer.endRenderer();

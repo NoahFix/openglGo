@@ -14,6 +14,7 @@
 #include <mutex>
 #include "CameraObject.h"
 #include "gui/ImguiRenderer.h"
+#include "GERenderer.h"
 
 struct Rect {
     int width;
@@ -39,6 +40,7 @@ public:
     }
 
 private:
+    GERenderer geRenderer;
     ImguiRenderer imguiRenderer;
     glm::vec3 clearColor;
     GEInstance();
