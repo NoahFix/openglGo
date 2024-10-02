@@ -8,6 +8,7 @@
 
 #include "Texture.h"
 #include <vector>
+#include <map>
 
 class TextureManager {
 public:
@@ -18,7 +19,7 @@ public:
         return instance;
     }
 
-    std::vector<int> texturesIdList;
+    std::map<int, const Texture&> insertedTexturesList;
     int addTexture(const Texture& texture);
     int existTexture(const Texture &texture);
 private:

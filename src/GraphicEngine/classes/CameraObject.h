@@ -7,14 +7,20 @@
 
 #include "glm.hpp"
 #include "GERenderableObject.h"
-#include "Properties/Camera.h"
 
-class CameraObject: public GEObject, public Camera {
+class CameraObject: public GEObject {
 public:
     CameraObject(float x, float y, float z);
-    void setCameraPosition(float x, float y, float z);
-    void lookAt(glm::vec3 pointPosition);
 
+    virtual ~CameraObject() = default;
+
+    void setCameraPosition(float x, float y, float z);
+    virtual void processInput(GLFWwindow *window) = 0;
+    virtual void processMouse(GLFWwindow *window, double xPos, double yPos) = 0;
+
+    bool displayCursor = false;
+    float pitch = 0;
+    float yaw = 0;
 };
 
 

@@ -6,7 +6,9 @@
 #define OPENGLGO_VERTEXMEMORYLAYOUT_H
 
 #include <vector>
-#define LAYOUT_TYPE_M3DT2D 0
+#define LAYOUT_TYPE_F3F2 0
+#define LAYOUT_TYPE_F3F3 1
+#define LAYOUT_TYPE_F3F3F2 2
 
 struct GLMemoryLayoutAttribute {
     int size;

@@ -21,7 +21,7 @@ VertexArray::~VertexArray() {
     glDeleteVertexArrays(1, &m_ID);
 }
 
-void VertexArray::addVertexBufferObject(VertexBuffer &vbo, const VertexMemoryLayout &memLayout) {
+void VertexArray::setVertexBufferObject(VertexBuffer &vbo, const VertexMemoryLayout &memLayout) {
     vbo.bind();
     this->bind();
 

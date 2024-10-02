@@ -29,11 +29,28 @@ std::vector<struct GLMemoryLayoutAttribute> VertexMemoryLayout::getLayoutObject(
 
 VertexMemoryLayout VertexMemoryLayout::getPresetLayout(int layoutName) {
     VertexMemoryLayout layout;
-    if(layoutName == LAYOUT_TYPE_M3DT2D) {
-        layout.pushFloat(3);
-        layout.pushFloat(2);
-    } else {
-        throw std::runtime_error("Unknown layout type");
+
+    switch (layoutName) {
+        case LAYOUT_TYPE_F3F2: {
+            layout.pushFloat(3);
+            layout.pushFloat(2);
+            break;
+        }
+
+        case LAYOUT_TYPE_F3F3: {
+            layout.pushFloat(3);
+            layout.pushFloat(3);
+            break;
+        }
+
+        case LAYOUT_TYPE_F3F3F2: {
+            layout.pushFloat(3);
+            layout.pushFloat(3);
+            layout.pushFloat(2);
+            break;
+        }
+
+        default: throw std::runtime_error("Unknown layout type");
     }
     return layout;
 }

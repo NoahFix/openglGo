@@ -107,7 +107,7 @@
 //    layoutLights.pushFloat(3); // Position
 //
 //    vaoObjects.addVertexBufferObject(vbo, layoutObjects);
-//    vaoLight.addVertexBufferObject(vbo, layoutLights);
+//    vaoLight.setVertexBufferObject(vbo, layoutLights);
 //
 //    // Create shaders
 //    std::string vs;

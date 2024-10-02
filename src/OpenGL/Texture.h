@@ -9,9 +9,10 @@
 #include <GLFW/glfw3.h>
 #include "GLMemoryObject.h"
 #include <string>
+#include "classes/Hashable.h"
 class Program;
 
-class Texture: public GLMemoryObject {
+class Texture: public GLMemoryObject, public Hashable {
     friend class Program;
     friend class TextureManager;
 private:

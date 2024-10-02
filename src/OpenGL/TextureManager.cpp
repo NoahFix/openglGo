@@ -10,7 +10,8 @@ int TextureManager::addTexture(const Texture& texture) {
     if (m_textureCount > 15)
         throw std::runtime_error("Only 16 textures can be applied!");
 
-    texturesIdList.push_back(texture.m_ID);
+//    texturesIdList.push_back(texture.m_ID);
+    insertedTexturesList.insert(std::pair(GL_TEXTURE0 + m_textureCount, std::ref(texture)));
     int currentProgram;
     glGetIntegerv(GL_CURRENT_PROGRAM, &currentProgram);
     if(currentProgram == 0)
@@ -24,9 +25,9 @@ int TextureManager::addTexture(const Texture& texture) {
 }
 
 int TextureManager::existTexture(const Texture &texture) {
-    for (int i = 0; i < texturesIdList.size(); ++i) {
-        if (texturesIdList.at(i) == texture.m_ID)
-            return i;
+    for(auto tex:insertedTexturesList) {
+        if (texture.textureUniName == tex.second.textureUniName)
+            return tex.first;
     }
 
     return -1;

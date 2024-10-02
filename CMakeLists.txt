@@ -7,10 +7,20 @@ include_directories(/Users/noahfix/CLionProjects/openglGo/libraries/glad/include
 include_directories(/opt/homebrew/Cellar/glfw/3.3.9/include)
 include_directories(/Users/noahfix/CLionProjects/openglGo/libraries/glm)
 include_directories(/Users/noahfix/CLionProjects/openglGo/libraries/imgui)
-include_directories(/Users/noahfix/CLionProjects/openglGo/classes/GraphicEngine)
+include_directories(/Users/noahfix/CLionProjects/openglGo/src/)
 include_directories(/Users/noahfix/CLionProjects/openglGo/src/GraphicEngine)
+include_directories(/opt/homebrew/Cellar/assimp/5.4.2/include)
+include_directories(/Users/noahfix/CLionProjects/openglGo/src/MyGame/utils)
+include_directories(/Users/noahfix/CLionProjects/openglGo/src/MyGame)
+include_directories()
 
 link_directories(/opt/homebrew/Cellar/glfw/3.3.9/lib)
+link_directories(/opt/homebrew/Cellar/assimp/5.4.2/lib)
+
+file(GLOB_RECURSE SRC_SRC ${PROJECT_SOURCE_DIR}/src)
+file(GLOB_RECURSE SRC_LIBRARIES ${PROJECT_SOURCE_DIR}/libraries)
+
+set(SRC ${SRC_SRC} ${SRC_LIBRARIES} main.cpp)
 
 add_executable(openglGo
         libraries/glad/src/glad.c
@@ -60,10 +70,29 @@ add_executable(openglGo
         libraries/imgui/imgui_tables.cpp
         libraries/imgui/imgui_widgets.cpp
         src/GraphicEngine/classes/GEObject.h
-        src/GraphicEngine/Properties/Camera.h
         src/GraphicEngine/classes/GERenderer.h
         src/GraphicEngine/classes/GERenderer.cpp
+        src/GraphicEngine/utils/utils.h
+        src/GraphicEngine/classes/KeyboardCamera.h
+        src/GraphicEngine/classes/KeyboardCamera.cpp
+        src/GraphicEngine/classes/MouseCamera.h
+        src/GraphicEngine/classes/MouseCamera.cpp
+        src/MyGame/world/Chunk.h
+        src/MyGame/utils/defination.h
+        src/MyGame/world/World.h
+        src/MyGame/world/World.cpp
+        src/MyGame/Block/AirBlock.h
+        src/MyGame/Block/AirBlock.cpp
+        src/MyGame/Block/Block.h
+        src/MyGame/Block/WorldBlock.h
+        src/MyGame/Block/IWorldBlock.h
+        src/GraphicEngine/classes/Material.h
+        src/GraphicEngine/classes/Material.cpp
+        src/GraphicEngine/classes/Hashable.h
+        src/GraphicEngine/classes/Hashable.cpp
+
 )
+
 
 target_link_libraries(
         openglGo

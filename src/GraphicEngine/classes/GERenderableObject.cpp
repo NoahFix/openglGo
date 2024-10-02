@@ -13,7 +13,7 @@ GERenderableObject::GERenderableObject(char *vertexData, int size, const Program
     transformation.position.y = 0;
     transformation.position.z = 0;
 
-    glDetails.vertexArray.addVertexBufferObject(glDetails.vertexBuffer, layout);
+    glDetails.vertexArray.setVertexBufferObject(glDetails.vertexBuffer, layout);
 }
 
 GERenderableObject::GERenderableObject(char *vertexData, int size, const Program &shader, const VertexMemoryLayout &layout, char *iboBuffer, int sizeIBO)
@@ -22,7 +22,7 @@ GERenderableObject::GERenderableObject(char *vertexData, int size, const Program
     transformation.position.y = 0;
     transformation.position.z = 0;
 
-    glDetails.vertexArray.addVertexBufferObject(glDetails.vertexBuffer, layout);
+    glDetails.vertexArray.setVertexBufferObject(glDetails.vertexBuffer, layout);
     // 这里你又遇到了一个内存问题，这句代码原来是这么写的：
     // this->iboBuffer = IndexBuffer(sizeIBO, iboBuffer);
     // 由于右值是个临时对象，所以语句结束后就会被析构，ibo就会解绑。这就是深浅拷贝的问题
@@ -41,7 +41,12 @@ GERenderableObject::GERenderableObject(char *vertexData, int size, const Program
     transformation.position.y = 0;
     transformation.position.z = 0;
 
-    glDetails.vertexArray.addVertexBufferObject(glDetails.vertexBuffer, layout);
+    glDetails.vertexArray.setVertexBufferObject(glDetails.vertexBuffer, layout);
+
+    time_t t;
+    time(&t);
+    srand(t);
+    random = rand();
 }
 
 void GERenderableObject::addTexture(const Texture &texture) {

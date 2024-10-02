@@ -12,6 +12,9 @@ class Program;
 class GLCube: public GERenderableObject {
 public:
     explicit GLCube(const Program &shader);
+    GLCube(const Program &shader, const VertexMemoryLayout &layout);
+
+    GLCube(const Program &shader, bool withBuiltInNormalsData);
 };
 
 

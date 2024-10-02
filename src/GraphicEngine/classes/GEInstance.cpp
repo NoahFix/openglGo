@@ -5,8 +5,7 @@
 #include "GEInstance.h"
 #include "../../../libraries/glhelper.h"
 #include <GLFW/glfw3.h>
-#include "gtc/matrix_transform.hpp"
-#include <thread>
+#include <gtc/matrix_transform.hpp>
 #include "../../OpenGL/Renderer.h"
 
 static GLFWwindow *window = nullptr;
@@ -17,30 +16,9 @@ void GEInstance::fittingWindowResizing(GLFWwindow* _, int width, int height) {
 
 }
 
-static bool latelyPressedL = false;
-
-void GEInstance::processInput(GLFWwindow *_, glm::vec3 &o_cameraPos, const glm::vec3 &i_vectorForward) {
-    static float lastTime = 0;
-    float costTime = (float)glfwGetTime() - lastTime;
-    glm::vec3 localVecForward;
-    localVecForward.x = i_vectorForward.x;
-    localVecForward.z = i_vectorForward.z;
-    localVecForward.y = 0;
-
-    float cameraSpeed = 4.0f; // adjust accordingly
-    if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS)
-        o_cameraPos += costTime * cameraSpeed * localVecForward;
-    if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS)
-        o_cameraPos -= costTime * cameraSpeed * localVecForward;
-    if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS)
-        o_cameraPos -= glm::normalize(glm::cross(localVecForward, glm::vec3(0, 1, 0))) * cameraSpeed * costTime;
-    if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS)
-        o_cameraPos += glm::normalize(glm::cross(localVecForward, glm::vec3(0, 1, 0))) * cameraSpeed * costTime;
-    if (glfwGetKey(window, GLFW_KEY_SPACE) == GLFW_PRESS)
-        o_cameraPos += glm::length(localVecForward) * cameraSpeed * glm::vec3(0, 1, 0) * costTime;
-    if (glfwGetKey(window, GLFW_KEY_LEFT_SHIFT) == GLFW_PRESS)
-        o_cameraPos -= glm::length(localVecForward) * cameraSpeed * glm::vec3(0, 1, 0) * costTime;
-
+void GEInstance::processInput(GLFWwindow *_) {
+    static bool latelyPressedL = false;
+    builtInCamera.processInput(_);
     // Custom keys
     // When key pressed down, work once.
     if (glfwGetKey(window, GLFW_KEY_L) == GLFW_PRESS) {
@@ -52,35 +30,15 @@ void GEInstance::processInput(GLFWwindow *_, glm::vec3 &o_cameraPos, const glm::
         latelyPressedL = false;
     }
 
-    float sightMovingSpeed = 90.0f;
-    if (glfwGetKey(window, GLFW_KEY_LEFT) == GLFW_PRESS)
-        builtInCamera.yaw -= sightMovingSpeed * costTime;
-    if (glfwGetKey(window, GLFW_KEY_RIGHT) == GLFW_PRESS)
-        builtInCamera.yaw += sightMovingSpeed * costTime;
-    if (glfwGetKey(window, GLFW_KEY_UP) == GLFW_PRESS) {
-        if (builtInCamera.pitch >= 89.0f)
-            builtInCamera.pitch = 89.9f;
-        else
-            builtInCamera.pitch += sightMovingSpeed * costTime;
-    }
-
-    if (glfwGetKey(window, GLFW_KEY_DOWN) == GLFW_PRESS) {
-        if (builtInCamera.pitch <= -89.0f)
-            builtInCamera.pitch = -89.9f;
-        else
-            builtInCamera.pitch -= sightMovingSpeed * costTime;
-    }
-    lastTime = (float)glfwGetTime();
-
 }
 
 int GEInstance::begin(Rect windowSize_, const std::string &title) {
     // The lack of the sentence caused crash.
     glfwInit();
     GEInstance::windowSize = windowSize_;
-    // These code is used to make glfw adapt to version 330.
-    glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
-    glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
+    // These code is used to make glfw adapt to version 410.
+    glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
+    glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 1);
     glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
     #ifdef __APPLE__
     std::cout << "I'm apple machine" << std::endl;
@@ -144,15 +102,16 @@ int GEInstance::begin(Rect windowSize_, const std::string &title) {
     if (window == nullptr)
         return 1;
 
-    glEnable(GL_DEPTH_TEST);
-    glDepthFunc(GL_LESS);
-    glEnable(GL_CULL_FACE);
-    glCullFace(GL_BACK);
+
     glfwMakeContextCurrent(window);
     glfwSwapInterval(1); // Enable vsync
     glfwSetWindowSizeCallback(window, fittingWindowResizing);
-//    glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
-//    glfwSetInputMode(GEInstance::getWindowPtr(), GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+    glfwSetCursorPosCallback(window, mouseCallback);
+    if (!builtInCamera.displayCursor)
+        glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+    else
+        glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
+
     imguiRenderer.init();
 
     return 0;
@@ -168,32 +127,30 @@ void GEInstance::renderArray(GERenderableObject *object) {
 // renderLoop负责每一帧画面的渲染，每轮循环会执行dynamicTransCallback函数，主要用于动态地对object做transformation
 // 这里还涉及到了对不同object的贴图切换
 void GEInstance::renderLoop(std::function<void(void)> *dynamicTransCallback) {
+    double renderingStartTime = -1;
+    double renderingEndTime = -1;
+    double lastFPS = 0;
+    double lastUpdateFPS = 0;
 
     while (!glfwWindowShouldClose(window))
     {
+        renderingStartTime = glfwGetTime();
         // Game scene rendering
         glClearColor(clearColor.x, clearColor.y, clearColor.z, 1);
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-
         glPolygonMode(GL_FRONT_AND_BACK, geRenderer.wireframeEnable ? GL_LINE : GL_FILL);
+        glEnable(GL_DEPTH_TEST);
+        glDepthFunc(GL_LESS);
+//        glEnable(GL_CULL_FACE);
+//        glCullFace(GL_BACK);
 
-        // CameraObject moving process
-        glm::vec3 vectorForward(0, 0, -1);
-        vectorForward.z = sin(glm::radians(builtInCamera.yaw)) * cos(glm::radians(builtInCamera.pitch));
-        vectorForward.x = cos(glm::radians(builtInCamera.yaw)) * cos(glm::radians(builtInCamera.pitch));
-        vectorForward.y = sin(glm::radians(builtInCamera.pitch));
-        vectorForward = glm::normalize(vectorForward);
-
-        glm::vec3 vecMovingForward;
-        vecMovingForward.z = sin(glm::radians(builtInCamera.yaw));
-        vecMovingForward.x = cos(glm::radians(builtInCamera.yaw));
-        vecMovingForward.y = 0;
-        builtInCamera.sightVector = vectorForward;
-        processInput(GEInstance::getWindowPtr(), builtInCamera.transformation.position, vecMovingForward);
+        processInput(GEInstance::getWindowPtr());
 
         // 注意：这里必须写 GERenderableObject &object:renderList 不能写成： GERenderableObject object:renderList 否则图像只会闪现而过！！！
         // TODO: or (GERenderableObject &object:renderList) 竟然能发生复制object？？？
         for(GERenderableObject *object:renderList) {
+            if (!object->shouldRender)
+                continue;
             // Draw main objects
             OpenGLDetails& glDetails = object->glDetails;
             Renderer::init(&glDetails.ibo, &glDetails.shader, &glDetails.vertexArray, &glDetails.vertexBuffer);
@@ -202,15 +159,24 @@ void GEInstance::renderLoop(std::function<void(void)> *dynamicTransCallback) {
             object->loadAllTextures();
 
             glm::mat4 modelMat(1.0), viewMat(1.0), projectionMat(1.0);
-            glm::vec3 objectPosition = object->transformation.position;
-            modelMat = glm::translate(modelMat, -objectPosition);
-
+            const glm::vec3 &objectPosition = object->transformation.position;
+            modelMat = glm::translate(modelMat, objectPosition);
+            // CameraObject moving process
+            glm::vec3 lookAtPos;
+            lookAtPos.z = sin(glm::radians(builtInCamera.yaw)) * cos(glm::radians(builtInCamera.pitch));
+            lookAtPos.x = cos(glm::radians(builtInCamera.yaw)) * cos(glm::radians(builtInCamera.pitch));
+            lookAtPos.y = sin(glm::radians(builtInCamera.pitch));
+            lookAtPos = glm::normalize(lookAtPos);
 
             viewMat = glm::lookAt(builtInCamera.transformation.position,
-                                  builtInCamera.transformation.position + builtInCamera.sightVector,
-                               glm::vec3(0.0f, 1.0f, 0.0f));
+                                  builtInCamera.transformation.position + lookAtPos,
+                                glm::vec3(0.0f, 1.0f, 0.0f));
+
             projectionMat = glm::perspective(glm::radians(60.0f),float (windowSize.width) / float(windowSize.height), 0.1f, 100.0f);
-            glDetails.shader.setMatrix4("glPosition", projectionMat * viewMat * modelMat);
+            glDetails.shader.setMatrix4("model", modelMat);
+            glDetails.shader.setMatrix4("view", viewMat);
+            glDetails.shader.setMatrix4("projection", projectionMat);
+            glDetails.shader.setMatrix4("rotate", object->transformation.rotate);
 
             if (glDetails.ibo.isNullIBO()) {
                 int v = (int)(glDetails.vertexBuffer.size / glDetails.vertexArray.getEachVertexSize());
@@ -222,7 +188,6 @@ void GEInstance::renderLoop(std::function<void(void)> *dynamicTransCallback) {
 
             if(dynamicTransCallback != nullptr)
                 (*dynamicTransCallback)();
-
         }
 
         // GUI rendering
@@ -232,14 +197,24 @@ void GEInstance::renderLoop(std::function<void(void)> *dynamicTransCallback) {
         ImGui::Begin("Debugger");
         ImGui::Text("Position: (%f, %f, %f)", position.x, position.y, position.z);
         ImGui::Text("Window size: w%d, h%d", windowSize.width, windowSize.height);
+        ImGui::Text("Frames per second: %f", lastFPS);
+        ImGui::Text("Pitch: %f, Yaw: %f", builtInCamera.pitch, builtInCamera.yaw);
 
         ImGui::End();
         imguiRenderer.endRenderer();
+
+        renderingEndTime = glfwGetTime();
+
+        if (glfwGetTime() - lastUpdateFPS >= 0.5) {
+            lastUpdateFPS = glfwGetTime();
+            lastFPS = 1 / (renderingEndTime - renderingStartTime);
+        }
 
         /* Swap front and back buffers */
         glfwSwapBuffers(window);
         /* Poll for and process events */
         glfwPollEvents();
+
     }
 
     imguiRenderer.destroy();
@@ -253,7 +228,7 @@ GLFWwindow *GEInstance::getWindowPtr() {
     return window;
 }
 
-GEInstance::GEInstance(): builtInCamera(0, 0, 0), clearColor(0, 0, 0) {}
+GEInstance::GEInstance(CameraObject &camera): builtInCamera(camera), clearColor(0, 0, 0) {}
 
 CameraObject &GEInstance::getCamera() {
     return builtInCamera;
@@ -263,3 +238,29 @@ void GEInstance::setClearColor(float r, float g, float b) {
     clearColor = glm::vec3(r, g, b);
 }
 
+void GEInstance::clearLastTexture() {
+    glBindTexture(GL_TEXTURE_2D, 0);
+}
+
+void GEInstance::registerKey(int glfw_key_type, bool isPressedKeyType, const std::function<void(void)>& callback) {
+
+    GEInstance::registeredKey rk = {glfw_key_type, isPressedKeyType};
+//    listeningKeys.insert(std::make_pair(rk, callback));
+}
+
+void GEInstance::mouseCallback(GLFWwindow *_, double xposIn, double yposIn) {
+    GEInstance &instance_ = GEInstance::getInstance();
+    instance_.builtInCamera.processMouse(_, xposIn, yposIn);
+}
+
+void GEInstance::beginGraphicEngin(CameraObject &camera) {
+    if (instance == nullptr)
+        instance = new GEInstance(camera);
+    else
+        throw std::runtime_error("Trial to reallocate GEInstance");
+}
+
+GEInstance::~GEInstance() {
+    delete instance;
+    delete &builtInCamera;
+}

@@ -22,12 +22,15 @@ class GEInstance;
 class GERenderableObject: public GEObject {
     friend class GEInstance;
 public:
+    bool shouldRender = true;
+
     GERenderableObject(char *vertexData, int size, const Program &&shader, const VertexMemoryLayout &layout);
     GERenderableObject(char *vertexData, int size, const Program& shader, const VertexMemoryLayout& layout);
     GERenderableObject(char *vertexData, int size, const Program& shader, const VertexMemoryLayout& layout, char *iboBuffer, int sizeIBO);
 
     Textures textures;
-private:
+protected:
+    int random = 0;
     OpenGLDetails glDetails;
     void loadAllTextures();
     void addTexture(const Texture &texture);

@@ -1,0 +1,3 @@
+/Users/noahfix/CLionProjects/openglGo/build/CMakeFiles/openglGo.dir
+/Users/noahfix/CLionProjects/openglGo/build/CMakeFiles/edit_cache.dir
+/Users/noahfix/CLionProjects/openglGo/build/CMakeFiles/rebuild_cache.dir

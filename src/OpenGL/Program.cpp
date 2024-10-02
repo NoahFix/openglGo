@@ -132,6 +132,8 @@ void Program::set4f(const std::string &name, int v1, int v2, int v3, int v4) {
 
 void Program::setMatrix4(const std::string &name, glm::mat4 Mat4) {
     int modelMatUni = glGetUniformLocation(this->getID(), name.c_str());
+    if (modelMatUni == -1)
+        throw std::runtime_error("\"" + name + "\" can't be found in the shader!");
     glUniformMatrix4fv(modelMatUni, 1, GL_FALSE, glm::value_ptr(Mat4));
 }
 
@@ -147,6 +149,5 @@ void Program::addTexture(const Texture &texture) {
     } else {
         int seq = tm.addTexture(texture);
         getUniform(texture.textureUniName).setI(seq);
-
     }
 }

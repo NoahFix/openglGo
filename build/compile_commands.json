@@ -1,0 +1,182 @@
+[
+{
+  "directory": "/Users/noahfix/CLionProjects/openglGo/build",
+  "command": "/Library/Developer/CommandLineTools/usr/bin/cc  -I/Users/noahfix/CLionProjects/openglGo/libraries/glad/include -I/opt/homebrew/Cellar/glfw/3.3.9/include -I/Users/noahfix/CLionProjects/openglGo/libraries/glm -I/Users/noahfix/CLionProjects/openglGo/libraries/imgui -I/Users/noahfix/CLionProjects/openglGo/classes/GraphicEngine -I/Users/noahfix/CLionProjects/openglGo/src/GraphicEngine -I/opt/homebrew/Cellar/assimp/5.4.2/include -I/Users/noahfix/CLionProjects/openglGo/src/MyGame/utils -I/Users/noahfix/CLionProjects/openglGo/src/MyGame -g -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX13.3.sdk -o CMakeFiles/openglGo.dir/libraries/glad/src/glad.c.o -c /Users/noahfix/CLionProjects/openglGo/libraries/glad/src/glad.c",
+  "file": "/Users/noahfix/CLionProjects/openglGo/libraries/glad/src/glad.c",
+  "output": "CMakeFiles/openglGo.dir/libraries/glad/src/glad.c.o"
+},
+{
+  "directory": "/Users/noahfix/CLionProjects/openglGo/build",
+  "command": "/Library/Developer/CommandLineTools/usr/bin/c++  -I/Users/noahfix/CLionProjects/openglGo/libraries/glad/include -I/opt/homebrew/Cellar/glfw/3.3.9/include -I/Users/noahfix/CLionProjects/openglGo/libraries/glm -I/Users/noahfix/CLionProjects/openglGo/libraries/imgui -I/Users/noahfix/CLionProjects/openglGo/classes/GraphicEngine -I/Users/noahfix/CLionProjects/openglGo/src/GraphicEngine -I/opt/homebrew/Cellar/assimp/5.4.2/include -I/Users/noahfix/CLionProjects/openglGo/src/MyGame/utils -I/Users/noahfix/CLionProjects/openglGo/src/MyGame -g -std=gnu++17 -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX13.3.sdk -o CMakeFiles/openglGo.dir/main.cpp.o -c /Users/noahfix/CLionProjects/openglGo/main.cpp",
+  "file": "/Users/noahfix/CLionProjects/openglGo/main.cpp",
+  "output": "CMakeFiles/openglGo.dir/main.cpp.o"
+},
+{
+  "directory": "/Users/noahfix/CLionProjects/openglGo/build",
+  "command": "/Library/Developer/CommandLineTools/usr/bin/c++  -I/Users/noahfix/CLionProjects/openglGo/libraries/glad/include -I/opt/homebrew/Cellar/glfw/3.3.9/include -I/Users/noahfix/CLionProjects/openglGo/libraries/glm -I/Users/noahfix/CLionProjects/openglGo/libraries/imgui -I/Users/noahfix/CLionProjects/openglGo/classes/GraphicEngine -I/Users/noahfix/CLionProjects/openglGo/src/GraphicEngine -I/opt/homebrew/Cellar/assimp/5.4.2/include -I/Users/noahfix/CLionProjects/openglGo/src/MyGame/utils -I/Users/noahfix/CLionProjects/openglGo/src/MyGame -g -std=gnu++17 -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX13.3.sdk -o CMakeFiles/openglGo.dir/src/OpenGL/VertexBuffer.cpp.o -c /Users/noahfix/CLionProjects/openglGo/src/OpenGL/VertexBuffer.cpp",
+  "file": "/Users/noahfix/CLionProjects/openglGo/src/OpenGL/VertexBuffer.cpp",
+  "output": "CMakeFiles/openglGo.dir/src/OpenGL/VertexBuffer.cpp.o"
+},
+{
+  "directory": "/Users/noahfix/CLionProjects/openglGo/build",
+  "command": "/Library/Developer/CommandLineTools/usr/bin/c++  -I/Users/noahfix/CLionProjects/openglGo/libraries/glad/include -I/opt/homebrew/Cellar/glfw/3.3.9/include -I/Users/noahfix/CLionProjects/openglGo/libraries/glm -I/Users/noahfix/CLionProjects/openglGo/libraries/imgui -I/Users/noahfix/CLionProjects/openglGo/classes/GraphicEngine -I/Users/noahfix/CLionProjects/openglGo/src/GraphicEngine -I/opt/homebrew/Cellar/assimp/5.4.2/include -I/Users/noahfix/CLionProjects/openglGo/src/MyGame/utils -I/Users/noahfix/CLionProjects/openglGo/src/MyGame -g -std=gnu++17 -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX13.3.sdk -o CMakeFiles/openglGo.dir/src/OpenGL/VertexArray.cpp.o -c /Users/noahfix/CLionProjects/openglGo/src/OpenGL/VertexArray.cpp",
+  "file": "/Users/noahfix/CLionProjects/openglGo/src/OpenGL/VertexArray.cpp",
+  "output": "CMakeFiles/openglGo.dir/src/OpenGL/VertexArray.cpp.o"
+},
+{
+  "directory": "/Users/noahfix/CLionProjects/openglGo/build",
+  "command": "/Library/Developer/CommandLineTools/usr/bin/c++  -I/Users/noahfix/CLionProjects/openglGo/libraries/glad/include -I/opt/homebrew/Cellar/glfw/3.3.9/include -I/Users/noahfix/CLionProjects/openglGo/libraries/glm -I/Users/noahfix/CLionProjects/openglGo/libraries/imgui -I/Users/noahfix/CLionProjects/openglGo/classes/GraphicEngine -I/Users/noahfix/CLionProjects/openglGo/src/GraphicEngine -I/opt/homebrew/Cellar/assimp/5.4.2/include -I/Users/noahfix/CLionProjects/openglGo/src/MyGame/utils -I/Users/noahfix/CLionProjects/openglGo/src/MyGame -g -std=gnu++17 -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX13.3.sdk -o CMakeFiles/openglGo.dir/src/OpenGL/Program.cpp.o -c /Users/noahfix/CLionProjects/openglGo/src/OpenGL/Program.cpp",
+  "file": "/Users/noahfix/CLionProjects/openglGo/src/OpenGL/Program.cpp",
+  "output": "CMakeFiles/openglGo.dir/src/OpenGL/Program.cpp.o"
+},
+{
+  "directory": "/Users/noahfix/CLionProjects/openglGo/build",
+  "command": "/Library/Developer/CommandLineTools/usr/bin/c++  -I/Users/noahfix/CLionProjects/openglGo/libraries/glad/include -I/opt/homebrew/Cellar/glfw/3.3.9/include -I/Users/noahfix/CLionProjects/openglGo/libraries/glm -I/Users/noahfix/CLionProjects/openglGo/libraries/imgui -I/Users/noahfix/CLionProjects/openglGo/classes/GraphicEngine -I/Users/noahfix/CLionProjects/openglGo/src/GraphicEngine -I/opt/homebrew/Cellar/assimp/5.4.2/include -I/Users/noahfix/CLionProjects/openglGo/src/MyGame/utils -I/Users/noahfix/CLionProjects/openglGo/src/MyGame -g -std=gnu++17 -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX13.3.sdk -o CMakeFiles/openglGo.dir/src/OpenGL/Shader.cpp.o -c /Users/noahfix/CLionProjects/openglGo/src/OpenGL/Shader.cpp",
+  "file": "/Users/noahfix/CLionProjects/openglGo/src/OpenGL/Shader.cpp",
+  "output": "CMakeFiles/openglGo.dir/src/OpenGL/Shader.cpp.o"
+},
+{
+  "directory": "/Users/noahfix/CLionProjects/openglGo/build",
+  "command": "/Library/Developer/CommandLineTools/usr/bin/c++  -I/Users/noahfix/CLionProjects/openglGo/libraries/glad/include -I/opt/homebrew/Cellar/glfw/3.3.9/include -I/Users/noahfix/CLionProjects/openglGo/libraries/glm -I/Users/noahfix/CLionProjects/openglGo/libraries/imgui -I/Users/noahfix/CLionProjects/openglGo/classes/GraphicEngine -I/Users/noahfix/CLionProjects/openglGo/src/GraphicEngine -I/opt/homebrew/Cellar/assimp/5.4.2/include -I/Users/noahfix/CLionProjects/openglGo/src/MyGame/utils -I/Users/noahfix/CLionProjects/openglGo/src/MyGame -g -std=gnu++17 -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX13.3.sdk -o CMakeFiles/openglGo.dir/src/OpenGL/Uniform.cpp.o -c /Users/noahfix/CLionProjects/openglGo/src/OpenGL/Uniform.cpp",
+  "file": "/Users/noahfix/CLionProjects/openglGo/src/OpenGL/Uniform.cpp",
+  "output": "CMakeFiles/openglGo.dir/src/OpenGL/Uniform.cpp.o"
+},
+{
+  "directory": "/Users/noahfix/CLionProjects/openglGo/build",
+  "command": "/Library/Developer/CommandLineTools/usr/bin/c++  -I/Users/noahfix/CLionProjects/openglGo/libraries/glad/include -I/opt/homebrew/Cellar/glfw/3.3.9/include -I/Users/noahfix/CLionProjects/openglGo/libraries/glm -I/Users/noahfix/CLionProjects/openglGo/libraries/imgui -I/Users/noahfix/CLionProjects/openglGo/classes/GraphicEngine -I/Users/noahfix/CLionProjects/openglGo/src/GraphicEngine -I/opt/homebrew/Cellar/assimp/5.4.2/include -I/Users/noahfix/CLionProjects/openglGo/src/MyGame/utils -I/Users/noahfix/CLionProjects/openglGo/src/MyGame -g -std=gnu++17 -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX13.3.sdk -o CMakeFiles/openglGo.dir/src/OpenGL/IndexBuffer.cpp.o -c /Users/noahfix/CLionProjects/openglGo/src/OpenGL/IndexBuffer.cpp",
+  "file": "/Users/noahfix/CLionProjects/openglGo/src/OpenGL/IndexBuffer.cpp",
+  "output": "CMakeFiles/openglGo.dir/src/OpenGL/IndexBuffer.cpp.o"
+},
+{
+  "directory": "/Users/noahfix/CLionProjects/openglGo/build",
+  "command": "/Library/Developer/CommandLineTools/usr/bin/c++  -I/Users/noahfix/CLionProjects/openglGo/libraries/glad/include -I/opt/homebrew/Cellar/glfw/3.3.9/include -I/Users/noahfix/CLionProjects/openglGo/libraries/glm -I/Users/noahfix/CLionProjects/openglGo/libraries/imgui -I/Users/noahfix/CLionProjects/openglGo/classes/GraphicEngine -I/Users/noahfix/CLionProjects/openglGo/src/GraphicEngine -I/opt/homebrew/Cellar/assimp/5.4.2/include -I/Users/noahfix/CLionProjects/openglGo/src/MyGame/utils -I/Users/noahfix/CLionProjects/openglGo/src/MyGame -g -std=gnu++17 -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX13.3.sdk -o CMakeFiles/openglGo.dir/src/OpenGL/VertexMemoryLayout.cpp.o -c /Users/noahfix/CLionProjects/openglGo/src/OpenGL/VertexMemoryLayout.cpp",
+  "file": "/Users/noahfix/CLionProjects/openglGo/src/OpenGL/VertexMemoryLayout.cpp",
+  "output": "CMakeFiles/openglGo.dir/src/OpenGL/VertexMemoryLayout.cpp.o"
+},
+{
+  "directory": "/Users/noahfix/CLionProjects/openglGo/build",
+  "command": "/Library/Developer/CommandLineTools/usr/bin/c++  -I/Users/noahfix/CLionProjects/openglGo/libraries/glad/include -I/opt/homebrew/Cellar/glfw/3.3.9/include -I/Users/noahfix/CLionProjects/openglGo/libraries/glm -I/Users/noahfix/CLionProjects/openglGo/libraries/imgui -I/Users/noahfix/CLionProjects/openglGo/classes/GraphicEngine -I/Users/noahfix/CLionProjects/openglGo/src/GraphicEngine -I/opt/homebrew/Cellar/assimp/5.4.2/include -I/Users/noahfix/CLionProjects/openglGo/src/MyGame/utils -I/Users/noahfix/CLionProjects/openglGo/src/MyGame -g -std=gnu++17 -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX13.3.sdk -o CMakeFiles/openglGo.dir/src/OpenGL/Renderer.cpp.o -c /Users/noahfix/CLionProjects/openglGo/src/OpenGL/Renderer.cpp",
+  "file": "/Users/noahfix/CLionProjects/openglGo/src/OpenGL/Renderer.cpp",
+  "output": "CMakeFiles/openglGo.dir/src/OpenGL/Renderer.cpp.o"
+},
+{
+  "directory": "/Users/noahfix/CLionProjects/openglGo/build",
+  "command": "/Library/Developer/CommandLineTools/usr/bin/c++  -I/Users/noahfix/CLionProjects/openglGo/libraries/glad/include -I/opt/homebrew/Cellar/glfw/3.3.9/include -I/Users/noahfix/CLionProjects/openglGo/libraries/glm -I/Users/noahfix/CLionProjects/openglGo/libraries/imgui -I/Users/noahfix/CLionProjects/openglGo/classes/GraphicEngine -I/Users/noahfix/CLionProjects/openglGo/src/GraphicEngine -I/opt/homebrew/Cellar/assimp/5.4.2/include -I/Users/noahfix/CLionProjects/openglGo/src/MyGame/utils -I/Users/noahfix/CLionProjects/openglGo/src/MyGame -g -std=gnu++17 -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX13.3.sdk -o CMakeFiles/openglGo.dir/src/OpenGL/Texture.cpp.o -c /Users/noahfix/CLionProjects/openglGo/src/OpenGL/Texture.cpp",
+  "file": "/Users/noahfix/CLionProjects/openglGo/src/OpenGL/Texture.cpp",
+  "output": "CMakeFiles/openglGo.dir/src/OpenGL/Texture.cpp.o"
+},
+{
+  "directory": "/Users/noahfix/CLionProjects/openglGo/build",
+  "command": "/Library/Developer/CommandLineTools/usr/bin/c++  -I/Users/noahfix/CLionProjects/openglGo/libraries/glad/include -I/opt/homebrew/Cellar/glfw/3.3.9/include -I/Users/noahfix/CLionProjects/openglGo/libraries/glm -I/Users/noahfix/CLionProjects/openglGo/libraries/imgui -I/Users/noahfix/CLionProjects/openglGo/classes/GraphicEngine -I/Users/noahfix/CLionProjects/openglGo/src/GraphicEngine -I/opt/homebrew/Cellar/assimp/5.4.2/include -I/Users/noahfix/CLionProjects/openglGo/src/MyGame/utils -I/Users/noahfix/CLionProjects/openglGo/src/MyGame -g -std=gnu++17 -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX13.3.sdk -o CMakeFiles/openglGo.dir/src/GraphicEngine/classes/GEInstance.cpp.o -c /Users/noahfix/CLionProjects/openglGo/src/GraphicEngine/classes/GEInstance.cpp",
+  "file": "/Users/noahfix/CLionProjects/openglGo/src/GraphicEngine/classes/GEInstance.cpp",
+  "output": "CMakeFiles/openglGo.dir/src/GraphicEngine/classes/GEInstance.cpp.o"
+},
+{
+  "directory": "/Users/noahfix/CLionProjects/openglGo/build",
+  "command": "/Library/Developer/CommandLineTools/usr/bin/c++  -I/Users/noahfix/CLionProjects/openglGo/libraries/glad/include -I/opt/homebrew/Cellar/glfw/3.3.9/include -I/Users/noahfix/CLionProjects/openglGo/libraries/glm -I/Users/noahfix/CLionProjects/openglGo/libraries/imgui -I/Users/noahfix/CLionProjects/openglGo/classes/GraphicEngine -I/Users/noahfix/CLionProjects/openglGo/src/GraphicEngine -I/opt/homebrew/Cellar/assimp/5.4.2/include -I/Users/noahfix/CLionProjects/openglGo/src/MyGame/utils -I/Users/noahfix/CLionProjects/openglGo/src/MyGame -g -std=gnu++17 -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX13.3.sdk -o CMakeFiles/openglGo.dir/src/GraphicEngine/classes/GERenderableObject.cpp.o -c /Users/noahfix/CLionProjects/openglGo/src/GraphicEngine/classes/GERenderableObject.cpp",
+  "file": "/Users/noahfix/CLionProjects/openglGo/src/GraphicEngine/classes/GERenderableObject.cpp",
+  "output": "CMakeFiles/openglGo.dir/src/GraphicEngine/classes/GERenderableObject.cpp.o"
+},
+{
+  "directory": "/Users/noahfix/CLionProjects/openglGo/build",
+  "command": "/Library/Developer/CommandLineTools/usr/bin/c++  -I/Users/noahfix/CLionProjects/openglGo/libraries/glad/include -I/opt/homebrew/Cellar/glfw/3.3.9/include -I/Users/noahfix/CLionProjects/openglGo/libraries/glm -I/Users/noahfix/CLionProjects/openglGo/libraries/imgui -I/Users/noahfix/CLionProjects/openglGo/classes/GraphicEngine -I/Users/noahfix/CLionProjects/openglGo/src/GraphicEngine -I/opt/homebrew/Cellar/assimp/5.4.2/include -I/Users/noahfix/CLionProjects/openglGo/src/MyGame/utils -I/Users/noahfix/CLionProjects/openglGo/src/MyGame -g -std=gnu++17 -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX13.3.sdk -o CMakeFiles/openglGo.dir/src/GraphicEngine/classes/CameraObject.cpp.o -c /Users/noahfix/CLionProjects/openglGo/src/GraphicEngine/classes/CameraObject.cpp",
+  "file": "/Users/noahfix/CLionProjects/openglGo/src/GraphicEngine/classes/CameraObject.cpp",
+  "output": "CMakeFiles/openglGo.dir/src/GraphicEngine/classes/CameraObject.cpp.o"
+},
+{
+  "directory": "/Users/noahfix/CLionProjects/openglGo/build",
+  "command": "/Library/Developer/CommandLineTools/usr/bin/c++  -I/Users/noahfix/CLionProjects/openglGo/libraries/glad/include -I/opt/homebrew/Cellar/glfw/3.3.9/include -I/Users/noahfix/CLionProjects/openglGo/libraries/glm -I/Users/noahfix/CLionProjects/openglGo/libraries/imgui -I/Users/noahfix/CLionProjects/openglGo/classes/GraphicEngine -I/Users/noahfix/CLionProjects/openglGo/src/GraphicEngine -I/opt/homebrew/Cellar/assimp/5.4.2/include -I/Users/noahfix/CLionProjects/openglGo/src/MyGame/utils -I/Users/noahfix/CLionProjects/openglGo/src/MyGame -g -std=gnu++17 -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX13.3.sdk -o CMakeFiles/openglGo.dir/src/OpenGL/TextureManager.cpp.o -c /Users/noahfix/CLionProjects/openglGo/src/OpenGL/TextureManager.cpp",
+  "file": "/Users/noahfix/CLionProjects/openglGo/src/OpenGL/TextureManager.cpp",
+  "output": "CMakeFiles/openglGo.dir/src/OpenGL/TextureManager.cpp.o"
+},
+{
+  "directory": "/Users/noahfix/CLionProjects/openglGo/build",
+  "command": "/Library/Developer/CommandLineTools/usr/bin/c++  -I/Users/noahfix/CLionProjects/openglGo/libraries/glad/include -I/opt/homebrew/Cellar/glfw/3.3.9/include -I/Users/noahfix/CLionProjects/openglGo/libraries/glm -I/Users/noahfix/CLionProjects/openglGo/libraries/imgui -I/Users/noahfix/CLionProjects/openglGo/classes/GraphicEngine -I/Users/noahfix/CLionProjects/openglGo/src/GraphicEngine -I/opt/homebrew/Cellar/assimp/5.4.2/include -I/Users/noahfix/CLionProjects/openglGo/src/MyGame/utils -I/Users/noahfix/CLionProjects/openglGo/src/MyGame -g -std=gnu++17 -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX13.3.sdk -o CMakeFiles/openglGo.dir/src/GraphicEngine/utils/GLCube.cpp.o -c /Users/noahfix/CLionProjects/openglGo/src/GraphicEngine/utils/GLCube.cpp",
+  "file": "/Users/noahfix/CLionProjects/openglGo/src/GraphicEngine/utils/GLCube.cpp",
+  "output": "CMakeFiles/openglGo.dir/src/GraphicEngine/utils/GLCube.cpp.o"
+},
+{
+  "directory": "/Users/noahfix/CLionProjects/openglGo/build",
+  "command": "/Library/Developer/CommandLineTools/usr/bin/c++  -I/Users/noahfix/CLionProjects/openglGo/libraries/glad/include -I/opt/homebrew/Cellar/glfw/3.3.9/include -I/Users/noahfix/CLionProjects/openglGo/libraries/glm -I/Users/noahfix/CLionProjects/openglGo/libraries/imgui -I/Users/noahfix/CLionProjects/openglGo/classes/GraphicEngine -I/Users/noahfix/CLionProjects/openglGo/src/GraphicEngine -I/opt/homebrew/Cellar/assimp/5.4.2/include -I/Users/noahfix/CLionProjects/openglGo/src/MyGame/utils -I/Users/noahfix/CLionProjects/openglGo/src/MyGame -g -std=gnu++17 -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX13.3.sdk -o CMakeFiles/openglGo.dir/src/GraphicEngine/gui/ImguiRenderer.cpp.o -c /Users/noahfix/CLionProjects/openglGo/src/GraphicEngine/gui/ImguiRenderer.cpp",
+  "file": "/Users/noahfix/CLionProjects/openglGo/src/GraphicEngine/gui/ImguiRenderer.cpp",
+  "output": "CMakeFiles/openglGo.dir/src/GraphicEngine/gui/ImguiRenderer.cpp.o"
+},
+{
+  "directory": "/Users/noahfix/CLionProjects/openglGo/build",
+  "command": "/Library/Developer/CommandLineTools/usr/bin/c++  -I/Users/noahfix/CLionProjects/openglGo/libraries/glad/include -I/opt/homebrew/Cellar/glfw/3.3.9/include -I/Users/noahfix/CLionProjects/openglGo/libraries/glm -I/Users/noahfix/CLionProjects/openglGo/libraries/imgui -I/Users/noahfix/CLionProjects/openglGo/classes/GraphicEngine -I/Users/noahfix/CLionProjects/openglGo/src/GraphicEngine -I/opt/homebrew/Cellar/assimp/5.4.2/include -I/Users/noahfix/CLionProjects/openglGo/src/MyGame/utils -I/Users/noahfix/CLionProjects/openglGo/src/MyGame -g -std=gnu++17 -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX13.3.sdk -o CMakeFiles/openglGo.dir/libraries/imgui/imgui_demo.cpp.o -c /Users/noahfix/CLionProjects/openglGo/libraries/imgui/imgui_demo.cpp",
+  "file": "/Users/noahfix/CLionProjects/openglGo/libraries/imgui/imgui_demo.cpp",
+  "output": "CMakeFiles/openglGo.dir/libraries/imgui/imgui_demo.cpp.o"
+},
+{
+  "directory": "/Users/noahfix/CLionProjects/openglGo/build",
+  "command": "/Library/Developer/CommandLineTools/usr/bin/c++  -I/Users/noahfix/CLionProjects/openglGo/libraries/glad/include -I/opt/homebrew/Cellar/glfw/3.3.9/include -I/Users/noahfix/CLionProjects/openglGo/libraries/glm -I/Users/noahfix/CLionProjects/openglGo/libraries/imgui -I/Users/noahfix/CLionProjects/openglGo/classes/GraphicEngine -I/Users/noahfix/CLionProjects/openglGo/src/GraphicEngine -I/opt/homebrew/Cellar/assimp/5.4.2/include -I/Users/noahfix/CLionProjects/openglGo/src/MyGame/utils -I/Users/noahfix/CLionProjects/openglGo/src/MyGame -g -std=gnu++17 -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX13.3.sdk -o CMakeFiles/openglGo.dir/libraries/imgui/imgui.cpp.o -c /Users/noahfix/CLionProjects/openglGo/libraries/imgui/imgui.cpp",
+  "file": "/Users/noahfix/CLionProjects/openglGo/libraries/imgui/imgui.cpp",
+  "output": "CMakeFiles/openglGo.dir/libraries/imgui/imgui.cpp.o"
+},
+{
+  "directory": "/Users/noahfix/CLionProjects/openglGo/build",
+  "command": "/Library/Developer/CommandLineTools/usr/bin/c++  -I/Users/noahfix/CLionProjects/openglGo/libraries/glad/include -I/opt/homebrew/Cellar/glfw/3.3.9/include -I/Users/noahfix/CLionProjects/openglGo/libraries/glm -I/Users/noahfix/CLionProjects/openglGo/libraries/imgui -I/Users/noahfix/CLionProjects/openglGo/classes/GraphicEngine -I/Users/noahfix/CLionProjects/openglGo/src/GraphicEngine -I/opt/homebrew/Cellar/assimp/5.4.2/include -I/Users/noahfix/CLionProjects/openglGo/src/MyGame/utils -I/Users/noahfix/CLionProjects/openglGo/src/MyGame -g -std=gnu++17 -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX13.3.sdk -o CMakeFiles/openglGo.dir/libraries/imgui/imgui_draw.cpp.o -c /Users/noahfix/CLionProjects/openglGo/libraries/imgui/imgui_draw.cpp",
+  "file": "/Users/noahfix/CLionProjects/openglGo/libraries/imgui/imgui_draw.cpp",
+  "output": "CMakeFiles/openglGo.dir/libraries/imgui/imgui_draw.cpp.o"
+},
+{
+  "directory": "/Users/noahfix/CLionProjects/openglGo/build",
+  "command": "/Library/Developer/CommandLineTools/usr/bin/c++  -I/Users/noahfix/CLionProjects/openglGo/libraries/glad/include -I/opt/homebrew/Cellar/glfw/3.3.9/include -I/Users/noahfix/CLionProjects/openglGo/libraries/glm -I/Users/noahfix/CLionProjects/openglGo/libraries/imgui -I/Users/noahfix/CLionProjects/openglGo/classes/GraphicEngine -I/Users/noahfix/CLionProjects/openglGo/src/GraphicEngine -I/opt/homebrew/Cellar/assimp/5.4.2/include -I/Users/noahfix/CLionProjects/openglGo/src/MyGame/utils -I/Users/noahfix/CLionProjects/openglGo/src/MyGame -g -std=gnu++17 -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX13.3.sdk -o CMakeFiles/openglGo.dir/libraries/imgui/imgui_impl_glfw.cpp.o -c /Users/noahfix/CLionProjects/openglGo/libraries/imgui/imgui_impl_glfw.cpp",
+  "file": "/Users/noahfix/CLionProjects/openglGo/libraries/imgui/imgui_impl_glfw.cpp",
+  "output": "CMakeFiles/openglGo.dir/libraries/imgui/imgui_impl_glfw.cpp.o"
+},
+{
+  "directory": "/Users/noahfix/CLionProjects/openglGo/build",
+  "command": "/Library/Developer/CommandLineTools/usr/bin/c++  -I/Users/noahfix/CLionProjects/openglGo/libraries/glad/include -I/opt/homebrew/Cellar/glfw/3.3.9/include -I/Users/noahfix/CLionProjects/openglGo/libraries/glm -I/Users/noahfix/CLionProjects/openglGo/libraries/imgui -I/Users/noahfix/CLionProjects/openglGo/classes/GraphicEngine -I/Users/noahfix/CLionProjects/openglGo/src/GraphicEngine -I/opt/homebrew/Cellar/assimp/5.4.2/include -I/Users/noahfix/CLionProjects/openglGo/src/MyGame/utils -I/Users/noahfix/CLionProjects/openglGo/src/MyGame -g -std=gnu++17 -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX13.3.sdk -o CMakeFiles/openglGo.dir/libraries/imgui/imgui_impl_opengl3.cpp.o -c /Users/noahfix/CLionProjects/openglGo/libraries/imgui/imgui_impl_opengl3.cpp",
+  "file": "/Users/noahfix/CLionProjects/openglGo/libraries/imgui/imgui_impl_opengl3.cpp",
+  "output": "CMakeFiles/openglGo.dir/libraries/imgui/imgui_impl_opengl3.cpp.o"
+},
+{
+  "directory": "/Users/noahfix/CLionProjects/openglGo/build",
+  "command": "/Library/Developer/CommandLineTools/usr/bin/c++  -I/Users/noahfix/CLionProjects/openglGo/libraries/glad/include -I/opt/homebrew/Cellar/glfw/3.3.9/include -I/Users/noahfix/CLionProjects/openglGo/libraries/glm -I/Users/noahfix/CLionProjects/openglGo/libraries/imgui -I/Users/noahfix/CLionProjects/openglGo/classes/GraphicEngine -I/Users/noahfix/CLionProjects/openglGo/src/GraphicEngine -I/opt/homebrew/Cellar/assimp/5.4.2/include -I/Users/noahfix/CLionProjects/openglGo/src/MyGame/utils -I/Users/noahfix/CLionProjects/openglGo/src/MyGame -g -std=gnu++17 -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX13.3.sdk -o CMakeFiles/openglGo.dir/libraries/imgui/imgui_stdlib.cpp.o -c /Users/noahfix/CLionProjects/openglGo/libraries/imgui/imgui_stdlib.cpp",
+  "file": "/Users/noahfix/CLionProjects/openglGo/libraries/imgui/imgui_stdlib.cpp",
+  "output": "CMakeFiles/openglGo.dir/libraries/imgui/imgui_stdlib.cpp.o"
+},
+{
+  "directory": "/Users/noahfix/CLionProjects/openglGo/build",
+  "command": "/Library/Developer/CommandLineTools/usr/bin/c++  -I/Users/noahfix/CLionProjects/openglGo/libraries/glad/include -I/opt/homebrew/Cellar/glfw/3.3.9/include -I/Users/noahfix/CLionProjects/openglGo/libraries/glm -I/Users/noahfix/CLionProjects/openglGo/libraries/imgui -I/Users/noahfix/CLionProjects/openglGo/classes/GraphicEngine -I/Users/noahfix/CLionProjects/openglGo/src/GraphicEngine -I/opt/homebrew/Cellar/assimp/5.4.2/include -I/Users/noahfix/CLionProjects/openglGo/src/MyGame/utils -I/Users/noahfix/CLionProjects/openglGo/src/MyGame -g -std=gnu++17 -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX13.3.sdk -o CMakeFiles/openglGo.dir/libraries/imgui/imgui_tables.cpp.o -c /Users/noahfix/CLionProjects/openglGo/libraries/imgui/imgui_tables.cpp",
+  "file": "/Users/noahfix/CLionProjects/openglGo/libraries/imgui/imgui_tables.cpp",
+  "output": "CMakeFiles/openglGo.dir/libraries/imgui/imgui_tables.cpp.o"
+},
+{
+  "directory": "/Users/noahfix/CLionProjects/openglGo/build",
+  "command": "/Library/Developer/CommandLineTools/usr/bin/c++  -I/Users/noahfix/CLionProjects/openglGo/libraries/glad/include -I/opt/homebrew/Cellar/glfw/3.3.9/include -I/Users/noahfix/CLionProjects/openglGo/libraries/glm -I/Users/noahfix/CLionProjects/openglGo/libraries/imgui -I/Users/noahfix/CLionProjects/openglGo/classes/GraphicEngine -I/Users/noahfix/CLionProjects/openglGo/src/GraphicEngine -I/opt/homebrew/Cellar/assimp/5.4.2/include -I/Users/noahfix/CLionProjects/openglGo/src/MyGame/utils -I/Users/noahfix/CLionProjects/openglGo/src/MyGame -g -std=gnu++17 -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX13.3.sdk -o CMakeFiles/openglGo.dir/libraries/imgui/imgui_widgets.cpp.o -c /Users/noahfix/CLionProjects/openglGo/libraries/imgui/imgui_widgets.cpp",
+  "file": "/Users/noahfix/CLionProjects/openglGo/libraries/imgui/imgui_widgets.cpp",
+  "output": "CMakeFiles/openglGo.dir/libraries/imgui/imgui_widgets.cpp.o"
+},
+{
+  "directory": "/Users/noahfix/CLionProjects/openglGo/build",
+  "command": "/Library/Developer/CommandLineTools/usr/bin/c++  -I/Users/noahfix/CLionProjects/openglGo/libraries/glad/include -I/opt/homebrew/Cellar/glfw/3.3.9/include -I/Users/noahfix/CLionProjects/openglGo/libraries/glm -I/Users/noahfix/CLionProjects/openglGo/libraries/imgui -I/Users/noahfix/CLionProjects/openglGo/classes/GraphicEngine -I/Users/noahfix/CLionProjects/openglGo/src/GraphicEngine -I/opt/homebrew/Cellar/assimp/5.4.2/include -I/Users/noahfix/CLionProjects/openglGo/src/MyGame/utils -I/Users/noahfix/CLionProjects/openglGo/src/MyGame -g -std=gnu++17 -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX13.3.sdk -o CMakeFiles/openglGo.dir/src/GraphicEngine/classes/GERenderer.cpp.o -c /Users/noahfix/CLionProjects/openglGo/src/GraphicEngine/classes/GERenderer.cpp",
+  "file": "/Users/noahfix/CLionProjects/openglGo/src/GraphicEngine/classes/GERenderer.cpp",
+  "output": "CMakeFiles/openglGo.dir/src/GraphicEngine/classes/GERenderer.cpp.o"
+},
+{
+  "directory": "/Users/noahfix/CLionProjects/openglGo/build",
+  "command": "/Library/Developer/CommandLineTools/usr/bin/c++  -I/Users/noahfix/CLionProjects/openglGo/libraries/glad/include -I/opt/homebrew/Cellar/glfw/3.3.9/include -I/Users/noahfix/CLionProjects/openglGo/libraries/glm -I/Users/noahfix/CLionProjects/openglGo/libraries/imgui -I/Users/noahfix/CLionProjects/openglGo/classes/GraphicEngine -I/Users/noahfix/CLionProjects/openglGo/src/GraphicEngine -I/opt/homebrew/Cellar/assimp/5.4.2/include -I/Users/noahfix/CLionProjects/openglGo/src/MyGame/utils -I/Users/noahfix/CLionProjects/openglGo/src/MyGame -g -std=gnu++17 -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX13.3.sdk -o CMakeFiles/openglGo.dir/src/GraphicEngine/classes/KeyboardCamera.cpp.o -c /Users/noahfix/CLionProjects/openglGo/src/GraphicEngine/classes/KeyboardCamera.cpp",
+  "file": "/Users/noahfix/CLionProjects/openglGo/src/GraphicEngine/classes/KeyboardCamera.cpp",
+  "output": "CMakeFiles/openglGo.dir/src/GraphicEngine/classes/KeyboardCamera.cpp.o"
+},
+{
+  "directory": "/Users/noahfix/CLionProjects/openglGo/build",
+  "command": "/Library/Developer/CommandLineTools/usr/bin/c++  -I/Users/noahfix/CLionProjects/openglGo/libraries/glad/include -I/opt/homebrew/Cellar/glfw/3.3.9/include -I/Users/noahfix/CLionProjects/openglGo/libraries/glm -I/Users/noahfix/CLionProjects/openglGo/libraries/imgui -I/Users/noahfix/CLionProjects/openglGo/classes/GraphicEngine -I/Users/noahfix/CLionProjects/openglGo/src/GraphicEngine -I/opt/homebrew/Cellar/assimp/5.4.2/include -I/Users/noahfix/CLionProjects/openglGo/src/MyGame/utils -I/Users/noahfix/CLionProjects/openglGo/src/MyGame -g -std=gnu++17 -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX13.3.sdk -o CMakeFiles/openglGo.dir/src/GraphicEngine/classes/MouseCamera.cpp.o -c /Users/noahfix/CLionProjects/openglGo/src/GraphicEngine/classes/MouseCamera.cpp",
+  "file": "/Users/noahfix/CLionProjects/openglGo/src/GraphicEngine/classes/MouseCamera.cpp",
+  "output": "CMakeFiles/openglGo.dir/src/GraphicEngine/classes/MouseCamera.cpp.o"
+},
+{
+  "directory": "/Users/noahfix/CLionProjects/openglGo/build",
+  "command": "/Library/Developer/CommandLineTools/usr/bin/c++  -I/Users/noahfix/CLionProjects/openglGo/libraries/glad/include -I/opt/homebrew/Cellar/glfw/3.3.9/include -I/Users/noahfix/CLionProjects/openglGo/libraries/glm -I/Users/noahfix/CLionProjects/openglGo/libraries/imgui -I/Users/noahfix/CLionProjects/openglGo/classes/GraphicEngine -I/Users/noahfix/CLionProjects/openglGo/src/GraphicEngine -I/opt/homebrew/Cellar/assimp/5.4.2/include -I/Users/noahfix/CLionProjects/openglGo/src/MyGame/utils -I/Users/noahfix/CLionProjects/openglGo/src/MyGame -g -std=gnu++17 -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX13.3.sdk -o CMakeFiles/openglGo.dir/src/MyGame/world/World.cpp.o -c /Users/noahfix/CLionProjects/openglGo/src/MyGame/world/World.cpp",
+  "file": "/Users/noahfix/CLionProjects/openglGo/src/MyGame/world/World.cpp",
+  "output": "CMakeFiles/openglGo.dir/src/MyGame/world/World.cpp.o"
+},
+{
+  "directory": "/Users/noahfix/CLionProjects/openglGo/build",
+  "command": "/Library/Developer/CommandLineTools/usr/bin/c++  -I/Users/noahfix/CLionProjects/openglGo/libraries/glad/include -I/opt/homebrew/Cellar/glfw/3.3.9/include -I/Users/noahfix/CLionProjects/openglGo/libraries/glm -I/Users/noahfix/CLionProjects/openglGo/libraries/imgui -I/Users/noahfix/CLionProjects/openglGo/classes/GraphicEngine -I/Users/noahfix/CLionProjects/openglGo/src/GraphicEngine -I/opt/homebrew/Cellar/assimp/5.4.2/include -I/Users/noahfix/CLionProjects/openglGo/src/MyGame/utils -I/Users/noahfix/CLionProjects/openglGo/src/MyGame -g -std=gnu++17 -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX13.3.sdk -o CMakeFiles/openglGo.dir/src/MyGame/Block/AirBlock.cpp.o -c /Users/noahfix/CLionProjects/openglGo/src/MyGame/Block/AirBlock.cpp",
+  "file": "/Users/noahfix/CLionProjects/openglGo/src/MyGame/Block/AirBlock.cpp",
+  "output": "CMakeFiles/openglGo.dir/src/MyGame/Block/AirBlock.cpp.o"
+}
+]
